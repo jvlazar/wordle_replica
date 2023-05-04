@@ -31,6 +31,8 @@ function getInput(rownum){
 function checkInput(str){
    const array = [];
 
+    // TODO -- maybe store the letters and their counts in a dictionary?
+
     // get the number of times each letter appears
     for (let i = 0; i < word.length; i++){
         array[i]= word.split(word[i]).length - 1;
@@ -40,7 +42,7 @@ function checkInput(str){
         console.log(`the counts for letter ${word[i]} is ${array[i]}`)
     }
 
-   // get all the green values
+    // get all the green values
     for (let i = 0; i < str.length; i++){
         if (str[i] == word[i]){
             console.log(`the letters are the same in position ${i+1}`)
