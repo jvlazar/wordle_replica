@@ -21,72 +21,50 @@ async function fetchWord(){
 function setAvailability(rownum){
     var childNodes = document.getElementById("row"+rownum).getElementsByTagName(`*`);
         for (let i = 0; i < childNodes.length; i++){
-            // disabling the current row's fields 
-            childNodes[i].disabled = false;
+            // enabling the current row's fields 
+            childNodes[i].disabled = !childNodes[i].disabled;
         }
 }
   
 
 function getInput(){
-    let isCorrect;
+  
     // TODO -- check to see if all fields are filled
+    document.getElementById(`message`).innerHTML = "";
    
-    // iterating through rows
-   
-        // getting all the elements from the current row
-        let ustr = "";
+    // getting all the elements from the current row
+    let ustr = "";
+    
         var childNodes = document.getElementById("row"+rowNumber).getElementsByTagName(`*`);
         for (let i = 0; i < childNodes.length; i++){
-            console.log(childNodes[i].value);
             // storing value of current node
             ustr += childNodes[i].value;
             // disabling the current row's fields 
             childNodes[i].disabled = true;
         }
-        console.log(ustr);
-        checkInput(ustr)
-        if (checkInput(ustr)){
-            console.log(`success, you guess the right word!`);
-         
-        } else {
-            rowNumber+=1;
+    
+        if (ustr.length != 5){
+            document.getElementById(`message`).innerHTML = "Please fill in all squares";
             setAvailability(rowNumber);
-        }
-
-    
-    
-
-
-
-    /*
-    for (let i = 1; i <= maxRowNumber; i++){
-        let userInput= "";
-        for (let j = 1; j <= maxFieldNumber ; j++){
-            let letter = document.getElementById('field'+j).value;
-            userInput += letter;
-        }
-        isCorrect = checkInput(userInput);
-        console.log(`done reading, input is ${isCorrect}, with user value ${userInput}`);
-        if (isCorrect){
-            console.log(`you guessed the correct word!`);
-            break;
+            return;
         } else {
-           
-           
-            
+            checkInput(ustr)
+            if (checkInput(ustr)){
+                document.getElementById("message").innerHTML = `SUCCESS! The word is "${word}"`;
+                return;
+                
+            } else if (rowNumber < maxRowNumber){
+                rowNumber+=1;
+                setAvailability(rowNumber);
+            } else {
+                document.getElementById(`message`).innerHTML = `You've run out of guesses. The correct word is "${word}"`;
+                return;
+            }
         }
-        
-    }
-
-
-    for (let i = 1; i < 6; i++){
-        let letter = document.getElementById('field'+i).value;
-        userInput += letter;
     
-    isCorrect = checkInput(userInput);
-    console.log(`looking at ${userInput}`);
-    iteration++;
-  */
+    
+    
+    
    
 }
 
@@ -109,12 +87,6 @@ function checkInput(str){
         }
     }
    
-    for (const x of map.entries()) {
-        console.log(x);
-    }
-
-    console.log("\n");
-    
     for (let i = 0; i < str.length; i++){
         if (!inputMap.has(str[i])){
             inputMap.set(str[i], 1);
@@ -125,55 +97,56 @@ function checkInput(str){
         }
     }
 
-    for (const x of inputMap.entries()) {
-        console.log(x);
-    }
-
-    console.log(`str length is ${str.length}`);
     // get all the green values
     for (let i = 0; i < str.length; i++){
-        console.log(`looking at input ${str[i]} and word ${word[i]}`)
         if (str[i] == word[i]){
-            changeColour("green", `field`+(i+1));
+            changeColour("green", (i));
             greenCount++;
         }
         else if (word.includes(str[i])){
             // if the input has more letters than necessary, leave color
             if (Number(inputMap.get(str[i])) >  Number(map.get(str[i]))){
-                console.log(`the color of ${str[i]} remains the same at position ${i+1}`);
-                changeColour("rgb(73, 73, 73)", `field`+(i+1));
+                changeColour("rgb(73, 73, 73)", i);
             } else {
-                console.log(`changing the color of ${str[i]}`);
                 // get all the yellow values
-                changeColour("rgb(255, 218, 36)", `field`+(i+1));
+                changeColour("rgb(255, 218, 36)", i);
 
             }
         } 
     }
+
     if (greenCount == 5){
         return true;
     } else {
         return false;
     }
-   
-    
 
 }
 
 
 function changeColour(colour, id){
-    //var element = document.getElementById("row"+rowNumber).getElementById(id);
-    //console.log(`element is ${element}`);
-    document.getElementById(id).style.backgroundColor = colour;
+    var parent = document.getElementById("row"+rowNumber);
+    parent.children[id].style.backgroundColor= colour;
 }
 
 
 async function main(){
-    const value = await fetchWord();
-    //word = value[0];
-    word = "hello";
+    
+    window.onload = function() {
+        var inputs;
+        var index;
 
-    console.log(`the word is ${word}`);
+        inputs = document.getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i++) {
+            // deal with inputs[index] element.
+            inputs[i].value = "";
+        }
+    }
+    const value = await fetchWord();
+    word = value[0];
+    //word = "hello";
+
+    //console.log(`the word is ${word}`);
     
 }
 

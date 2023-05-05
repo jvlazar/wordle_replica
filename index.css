@@ -50,6 +50,14 @@ button {
     background-color:rgb(173, 173, 173);
     border-style: solid;
     border-color: rgb(173, 173, 173);
+}
+
+.message{
+  
+    color: white;
+    font-size: 40px;
+    display: block;
+    text-align: center;
     
-    
+
 }
