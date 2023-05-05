@@ -162,8 +162,8 @@ function checkInput(str){
 
 
 function changeColour(colour, id){
-    var element = document.getElementById("row"+rowNumber).getElementById(id);
-    console.log(`element is ${element}`);
+    //var element = document.getElementById("row"+rowNumber).getElementById(id);
+    //console.log(`element is ${element}`);
     document.getElementById(id).style.backgroundColor = colour;
 }
 
