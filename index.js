@@ -77,7 +77,7 @@ function checkInput(str){
             } else {
                 console.log(`changing the color of ${str[i]}`);
                 // get all the yellow values
-                changeColour("yellow", `field`+(i+1));
+                changeColour("rgb(255, 218, 36)", `field`+(i+1));
 
             }
         } else {
