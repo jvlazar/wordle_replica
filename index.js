@@ -1,5 +1,4 @@
 let word;
-
 let rowNumber = 1;
 
 
@@ -29,29 +28,60 @@ function getInput(rownum){
 }
 
 function checkInput(str){
-   const array = [];
-
-    // TODO -- maybe store the letters and their counts in a dictionary?
+    // storing the letters and values of word in map
+    var map = new Map();
+    var inputMap = new Map();
 
     // get the number of times each letter appears
     for (let i = 0; i < word.length; i++){
-        array[i]= word.split(word[i]).length - 1;
+        // if the map doens't contain the letter, add to map
+        if (!map.has(word[i])){
+            map.set(word[i], 1);
+        } else {
+            // map has the word, update the value
+            var count = map.get(word[i]) + 1;
+            map.set(word[i], count);
+        }
+    }
+   
+    for (const x of map.entries()) {
+        console.log(x);
     }
 
-    for (let i = 0; i < array.length; i++){
-        console.log(`the counts for letter ${word[i]} is ${array[i]}`)
+    
+    for (let i = 0; i < str.length; i++){
+        if (!inputMap.has(str[i])){
+            inputMap.set(str[i], 1);
+        } else {
+            // map has the word, update the value
+            var count = inputMap.get(str[i]) + 1;
+            inputMap.set(str[i], count);
+        }
+    }
+
+    for (const x of inputMap.entries()) {
+        console.log(x);
     }
 
     // get all the green values
     for (let i = 0; i < str.length; i++){
+        console.log(`looking at input ${str[i]} and word ${word[i]}`)
         if (str[i] == word[i]){
-            console.log(`the letters are the same in position ${i+1}`)
             changeColour("green", `field`+(i+1));
         }
-        else if (word.includes(str[i]) && (word.split(word[i]).length - 1) >= 1){
-            // get all the yellow values
-            changeColour("yellow", `field`+(i+1));
+        else if (word.includes(str[i])){
+            // if the input has more letters than necessary, leave color
+            if (Number(inputMap.get(str[i])) >  Number(map.get(str[i]))){
+                console.log(`the color of ${str[i]} remains the same at position ${i+1}`);
+                changeColour("rgb(73, 73, 73)", `field`+(i+1));
+            } else {
+                console.log(`changing the color of ${str[i]}`);
+                // get all the yellow values
+                changeColour("yellow", `field`+(i+1));
+
+            }
         } else {
+            // do nothing
             
         }
     }
@@ -67,10 +97,10 @@ function changeColour(colour, id){
 
 async function main(){
     const value = await fetchWord();
-    word = "hello";
+    word = value[0];
 
 
-    console.log(`the word is ${word}`);
+    console.log(`the word is ${value}`);
     
 }
 
