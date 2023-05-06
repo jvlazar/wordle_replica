@@ -42,7 +42,9 @@ function getInput(){
             // disabling the current row's fields 
             childNodes[i].disabled = true;
         }
-    
+         
+        ustr=ustr.toLowerCase();
+
         if (ustr.length != 5){
             document.getElementById(`message`).innerHTML = "Please fill in all squares";
             setAvailability(rowNumber);
