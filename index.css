@@ -39,6 +39,7 @@ input[type="text"]{
 
 button {
     border-radius: 10%;
+    
     display: flex;
     align-items: center;
     text-align: center;
