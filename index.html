@@ -55,10 +55,47 @@
             <input type="text" id="field4" maxlength="1" disabled>
             <input type="text" id="field5" maxlength="1" disabled>
         </div>
-        <button onclick="getInput()" id="submit_button">ENTER</button>
+      
         <p class="message" id="message"> </p>
-
+        <div class="keyboard">
+            <div class="keyboard_row" id="keyboard_row1">
+                <button onclick="addInput('q')" id="q">Q</button>
+                <button onclick="addInput('w')" id="w">W</button>
+                <button onclick="addInput('e')" id="e">E</button>
+                <button onclick="addInput('r')" id="r">R</button>
+                <button onclick="addInput('t')" id="t">T</button>
+                <button onclick="addInput('y')" id="y">Y</button>
+                <button onclick="addInput('u')" id="u">U</button>
+                <button onclick="addInput('i')" id="i">I</button>
+                <button onclick="addInput('o')" id="o">O</button>
+                <button onclick="addInput('p')" id="p">P</button>
+            </div>
+            <div class="keyboard_row" id="keyboard_row2">
+                <button onclick="addInput('a')" id="a">A</button>
+                <button onclick="addInput('s')" id="s">S</button>
+                <button onclick="addInput('d')" id="d">D</button>
+                <button onclick="addInput('f')" id="f">F</button>
+                <button onclick="addInput('g')" id="g">G</button>
+                <button onclick="addInput('h')" id="h">H</button>
+                <button onclick="addInput('j')" id="j">J</button>
+                <button onclick="addInput('k')" id="k">K</button>
+                <button onclick="addInput('l')" id="l">L</button>
+            </div>
+            <div class="keyboard_row" id="keyboard_row3">
+                <button onclick="getInput()" id="submit_button">ENTER</button>
+                <button onclick="addInput('z')" id="z">Z</button>
+                <button onclick="addInput('x')" id="x">X</button>
+                <button onclick="addInput('c')" id="c">C</button>
+                <button onclick="addInput('v')" id="v">V</button>
+                <button onclick="addInput('b')" id="b">B</button>
+                <button onclick="addInput('n')" id="n">N</button>
+                <button onclick="addInput('m')" id="m">M</button>
+                <button onclick="" id="delete_button"></button>
+            </div>
+        </div>
     </div>
+
+   
 
 
 </body>

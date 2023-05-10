@@ -63,11 +63,6 @@ function getInput(){
                 return;
             }
         }
-    
-    
-    
-    
-   
 }
 
 
@@ -102,19 +97,24 @@ function checkInput(str){
     // get all the green values
     for (let i = 0; i < str.length; i++){
         if (str[i] == word[i]){
-            changeColour("green", (i));
+            changeColourInput("green", (i));
+            changeColourKeyboard("green", str[i]);
             greenCount++;
         }
         else if (word.includes(str[i])){
             // if the input has more letters than necessary, leave color
             if (Number(inputMap.get(str[i])) >  Number(map.get(str[i]))){
-                changeColour("rgb(73, 73, 73)", i);
+                changeColourInput("rgb(73, 73, 73)", i);
+               
             } else {
                 // get all the yellow values
-                changeColour("rgb(255, 218, 36)", i);
-
+                changeColourInput("rgb(255, 218, 36)", i);
+                changeColourKeyboard("rgb(255, 218, 36)", str[i]);
             }
-        } 
+        } else {
+            // the letter does not appear in the word
+            changeColourKeyboard("rgb(110, 110, 110)", str[i]);
+        }
     }
 
     if (greenCount == 5){
@@ -125,10 +125,19 @@ function checkInput(str){
 
 }
 
+function addInput(letter){
+    console.log(letter);
+}
 
-function changeColour(colour, id){
+function changeColourInput(colour, id){
     var parent = document.getElementById("row"+rowNumber);
     parent.children[id].style.backgroundColor= colour;
+}
+
+
+function changeColourKeyboard(colour, id){
+    document.getElementById(id).style.backgroundColor = colour;
+   
 }
 
 
@@ -144,6 +153,8 @@ async function main(){
             inputs[i].value = "";
         }
     }
+
+    
     const value = await fetchWord();
     word = value[0];
     //word = "hello";

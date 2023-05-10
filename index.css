@@ -36,10 +36,9 @@ input[type="text"]{
     font-size: 30px;
     text-align: center;
 }
-
-button {
+/*
+#submit_button{
     border-radius: 10%;
-    
     display: flex;
     align-items: center;
     text-align: center;
@@ -50,13 +49,58 @@ button {
     border-style: solid;
     border-color: rgb(173, 173, 173);
 }
-
+*/
 .message{
-  
     color: white;
     font-size: 40px;
     display: block;
     text-align: center;
-    
+}
 
+.keyboard{
+    background-color: red;
+    width: 100%;   
+    display: inline;
+   
+   
+}
+
+.keyboard_row{
+   margin-top: 1%;
+}
+
+#keyboard_row2{
+    text-align: center;
+}
+
+#keyboard_row1, #keyboard_row3{
+    margin-left: 25%;
+}
+
+
+.keyboard_row button {
+    position: relative;
+    width: 30px;
+    height: 50px;
+    text-align: center;
+    border-radius: 10%;
+    background-color: rgb(156, 156, 156);
+    border:none;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#submit_button{
+    font-size: 15px;
+    width: 60px;
+}
+
+#delete_button{
+    background-image: url("backspace.png");
+    background-repeat: no-repeat;
+    background-size: 40px, 50px;
+    background-position: center;
+    width: 70px;
+   
 }
