@@ -2,6 +2,7 @@ let word;
 let rowNumber = 1;
 let maxRowNumber = 6;
 let maxFieldNumber = 5;
+let fieldNumber = 0;
 
 
 async function fetchWord(){
@@ -18,15 +19,25 @@ async function fetchWord(){
 
 }
 
+
+
 function setAvailability(rownum){
+    console.log(`changing avialability of ${rowNumber} row`)
     var childNodes = document.getElementById("row"+rownum).getElementsByTagName(`*`);
         for (let i = 0; i < childNodes.length; i++){
             // enabling the current row's fields 
             childNodes[i].disabled = !childNodes[i].disabled;
         }
+        if (rownum != 1){
+            childNodes[0].focus();
+        }
+        fieldNumber = 0;
+       
 }
-  
 
+
+  
+// for keyboard input
 function getInput(){
   
     document.getElementById(`message`).innerHTML = "";
@@ -49,13 +60,10 @@ function getInput(){
             setAvailability(rowNumber);
             return;
         } else {
-            checkInput(ustr)
             if (checkInput(ustr)){
                 document.getElementById("message").innerHTML = `SUCCESS! The word is "${word}"`;
                 return;
-                
             } else if (rowNumber < maxRowNumber){
-                rowNumber+=1;
                 setAvailability(rowNumber);
             } else {
                 document.getElementById(`message`).innerHTML = `You've run out of guesses. The correct word is "${word}"`;
@@ -64,8 +72,9 @@ function getInput(){
         }
 }
 
-
+// compare user input to word
 function checkInput(str){
+    console.log(`row number is ${rowNumber}`);
     // storing the letters and values of word in map
     var map = new Map();
     var inputMap = new Map();
@@ -119,6 +128,8 @@ function checkInput(str){
     if (greenCount == 5){
         return true;
     } else {
+        rowNumber+=1;
+        console.log(`increasing number`);
         return false;
     }
 
@@ -133,16 +144,37 @@ function changeColourInput(colour, id){
 
 function changeColourKeyboard(colour, id){
     document.getElementById(id).style.backgroundColor = colour;
-   
 }
 
 
-function movetoNext(rownum, current, nextFieldID) { 
-    var childNodes = document.getElementById("row"+rownum).getElementsByTagName(`*`); 
+function movetoNext(current, nextFieldID) { 
+    fieldNumber += 1;
+    // get children nodes and the current field
+    var childNodes = document.getElementById("row"+rowNumber).getElementsByTagName(`*`); 
     if (current.value.length >= current.maxLength && nextFieldID != 5) {  
-        document.getElementById("row"+rownum).getElementsByTagName(`input`)[nextFieldID].focus();
-    //document.getElementById(nextFieldID).focus();  
+        document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[nextFieldID].focus();
+   
     }  
+}
+
+
+function moveToPrevious(){
+    console.log(`pressing delete`);
+    var childNodes = document.getElementById("row"+rowNumber).getElementsByTagName('input');
+    if (fieldNumber != 0){
+        document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber-1].value = "";
+        document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber-1].focus();
+        fieldNumber -= 1;
+    }
+}
+
+function addInput(letter){
+    console.log(`the letter selected is ${letter}`);
+    if (fieldNumber <= maxFieldNumber){
+        document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber].value = letter;
+        //document.getElementById("field"+fieldNumber).value = letter;
+        fieldNumber+=1;
+    }
 }
 
 
@@ -158,10 +190,11 @@ async function main(){
             inputs[i].value = "";
         }
     }
-
-
+    
     const value = await fetchWord();
     word = value[0];
+   
+  
     //word = "hello";
 
     //console.log(`the word is ${word}`);

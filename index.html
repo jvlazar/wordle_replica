@@ -14,18 +14,18 @@
 
     <div class="content">
         <div class="row" id="row1">
-            <input type="text" id="field1" maxlength="1" onkeyup="movetoNext(1, this, 1)">
-            <input type="text" id="field2" maxlength="1" onkeyup="movetoNext(1, this, 2)">
-            <input type="text" id="field3" maxlength="1" onkeyup="movetoNext(1, this, 3)">
-            <input type="text" id="field4" maxlength="1" onkeyup="movetoNext(1,this, 4)">
-            <input type="text" id="field5" maxlength="1"onkeyup="movetoNext (1,this, 5)" >
+            <input type="text" id="field1" maxlength="1" onkeyup="movetoNext(this, 1)">
+            <input type="text" id="field2" maxlength="1" onkeyup="movetoNext(this, 2)">
+            <input type="text" id="field3" maxlength="1" onkeyup="movetoNext(this, 3)">
+            <input type="text" id="field4" maxlength="1" onkeyup="movetoNext(this, 4)">
+            <input type="text" id="field5" maxlength="1"onkeyup="movetoNext (this, 5)">
         </div>
         <div class="row" id="row2">
-            <input type="text" id="field1" maxlength="1" disabled onkeyup="movetoNext(2, this, 1)">
-            <input type="text" id="field2" maxlength="1" disabled onkeyup="movetoNext(2, this, 2)">
-            <input type="text" id="field3" maxlength="1" disabled onkeyup="movetoNext(2, this, 3)">
-            <input type="text" id="field4" maxlength="1" disabled onkeyup="movetoNext(2, this, 4)">
-            <input type="text" id="field5" maxlength="1" disabled onkeyup="movetoNext(2, this, 5)">
+            <input type="text" id="field1" maxlength="1" disabled onkeyup="movetoNext( this, 1)">
+            <input type="text" id="field2" maxlength="1" disabled onkeyup="movetoNext(this, 2)">
+            <input type="text" id="field3" maxlength="1" disabled onkeyup="movetoNext(this, 3)">
+            <input type="text" id="field4" maxlength="1" disabled onkeyup="movetoNext(this, 4)">
+            <input type="text" id="field5" maxlength="1" disabled onkeyup="movetoNext( this, 5)">
         </div>
         <div class="row" id="row3"> 
             <input type="text" id="field1" maxlength="1" disabled onkeyup="movetoNext(3, this, 1)">
@@ -90,7 +90,7 @@
                 <button onclick="addInput('b')" id="b">B</button>
                 <button onclick="addInput('n')" id="n">N</button>
                 <button onclick="addInput('m')" id="m">M</button>
-                <button onclick="" id="delete_button" onkeyup="moveToPrevious()"></button>
+                <button onclick="moveToPrevious()" id="delete_button" ></button>
             </div>
         </div>
     </div>

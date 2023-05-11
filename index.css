@@ -104,3 +104,11 @@ input[type="text"]{
     width: 70px;
    
 }
+
+#delete_button:hover{
+    background-color: red;
+}
+
+#delete_button:active{
+    background-color: blue;
+}
