@@ -29,7 +29,6 @@ function setAvailability(rownum){
 
 function getInput(){
   
-    // TODO -- check to see if all fields are filled
     document.getElementById(`message`).innerHTML = "";
    
     // getting all the elements from the current row
@@ -44,7 +43,7 @@ function getInput(){
         }
          
         ustr=ustr.toLowerCase();
-
+        // the user hasn't filled all squares out
         if (ustr.length != 5){
             document.getElementById(`message`).innerHTML = "Please fill in all squares";
             setAvailability(rowNumber);
@@ -125,9 +124,6 @@ function checkInput(str){
 
 }
 
-function addInput(letter){
-    console.log(letter);
-}
 
 function changeColourInput(colour, id){
     var parent = document.getElementById("row"+rowNumber);
@@ -138,6 +134,15 @@ function changeColourInput(colour, id){
 function changeColourKeyboard(colour, id){
     document.getElementById(id).style.backgroundColor = colour;
    
+}
+
+function movetoNext(rownum, current, nextFieldID) { 
+    var childNodes = document.getElementById("row"+rownum).getElementsByTagName(`*`); 
+   
+    if (current.value.length >= current.maxLength && nextFieldID != 5) {  
+        document.getElementById("row"+rownum).getElementsByTagName(`input`)[nextFieldID].focus();
+    //document.getElementById(nextFieldID).focus();  
+    }  
 }
 
 
@@ -154,7 +159,7 @@ async function main(){
         }
     }
 
-    
+
     const value = await fetchWord();
     word = value[0];
     //word = "hello";
