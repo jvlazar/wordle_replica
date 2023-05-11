@@ -61,12 +61,13 @@ input[type="text"]{
     background-color: red;
     width: 100%;   
     display: inline;
-   
+    
    
 }
 
 .keyboard_row{
    margin-top: 1%;
+  
 }
 
 #keyboard_row2{
@@ -74,7 +75,7 @@ input[type="text"]{
 }
 
 #keyboard_row1, #keyboard_row3{
-    margin-left: 25%;
+   text-align: center;
 }
 
 
