@@ -136,9 +136,9 @@ function changeColourKeyboard(colour, id){
    
 }
 
+
 function movetoNext(rownum, current, nextFieldID) { 
     var childNodes = document.getElementById("row"+rownum).getElementsByTagName(`*`); 
-   
     if (current.value.length >= current.maxLength && nextFieldID != 5) {  
         document.getElementById("row"+rownum).getElementsByTagName(`input`)[nextFieldID].focus();
     //document.getElementById(nextFieldID).focus();  
@@ -147,7 +147,7 @@ function movetoNext(rownum, current, nextFieldID) {
 
 
 async function main(){
-    
+    // clears the fields on refresh
     window.onload = function() {
         var inputs;
         var index;
