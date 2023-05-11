@@ -62,11 +62,15 @@ function getInput(){
         } else {
             if (checkInput(ustr)){
                 document.getElementById("message").innerHTML = `SUCCESS! The word is "${word}"`;
+                if (rowNumber == maxRowNumber){
+                     setAvailability(rowNumber);
+                }
                 return;
             } else if (rowNumber <= maxRowNumber){
                 setAvailability(rowNumber);
             } else {
                 document.getElementById(`message`).innerHTML = `You've run out of guesses. The correct word is "${word}"`;
+                setAvailability(rowNumber);
                 return;
             }
         }

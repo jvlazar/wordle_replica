@@ -80,6 +80,7 @@ input[type="text"]{
 
 
 .keyboard_row button {
+    cursor: pointer;
     position: relative;
     width: 30px;
     height: 50px;
@@ -107,9 +108,9 @@ input[type="text"]{
 }
 
 #delete_button:hover{
-    background-color: red;
+    background-color: rgb(221, 221, 221);
 }
 
 #delete_button:active{
-    background-color: blue;
+    background-color: rgb(109, 109, 109);
 }
