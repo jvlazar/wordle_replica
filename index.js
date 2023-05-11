@@ -63,7 +63,7 @@ function getInput(){
             if (checkInput(ustr)){
                 document.getElementById("message").innerHTML = `SUCCESS! The word is "${word}"`;
                 return;
-            } else if (rowNumber < maxRowNumber){
+            } else if (rowNumber <= maxRowNumber){
                 setAvailability(rowNumber);
             } else {
                 document.getElementById(`message`).innerHTML = `You've run out of guesses. The correct word is "${word}"`;
@@ -102,6 +102,7 @@ function checkInput(str){
         }
     }
 
+    // TODO -- fix bug where yellow first appears, then if you add the same letter twice, it remains gray
     // get all the green values
     for (let i = 0; i < str.length; i++){
         if (str[i] == word[i]){
@@ -129,7 +130,7 @@ function checkInput(str){
         return true;
     } else {
         rowNumber+=1;
-        console.log(`increasing number`);
+        console.log(`increasing number to ${rowNumber}`);
         return false;
     }
 
