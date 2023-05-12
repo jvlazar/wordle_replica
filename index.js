@@ -20,11 +20,11 @@ async function fetchWord(){
 }
 
 
-
+// TODO - remove this, unnecessary
 function setAvailability(rownum){
     console.log(`changing avialability of ${rowNumber} row`);
     //document.getElementById("row"+rowNumber).getElementsByTagName(`*`)[0].disabled = true;
-    document.getElementById("row"+(rowNumber)).getElementsByTagName(`*`)[0].disabled = true;
+    document.getElementById("row"+(rowNumber)).getElementsByTagName(`*`)[0].disabled = false;
     /*
     for (let i = 0; i < childNodes.length; i++){
         // enabling the current row's fields 
@@ -39,7 +39,7 @@ function setAvailability(rownum){
 
 
 
-// for keyboard input
+// after clicking the enter button or getting the 
 function getInput(){
   
     document.getElementById(`message`).innerHTML = "";
@@ -150,72 +150,60 @@ function checkInput(str){
 
 }
 
-
+// changes colour of the fields according to response
 function changeColourInput(colour, id){
     var parent = document.getElementById("row"+rowNumber);
     parent.children[id].style.backgroundColor= colour;
 }
 
-
+// changes colour of the keyboard buttons on display
 function changeColourKeyboard(colour, id){
     document.getElementById(id).style.backgroundColor = colour;
 }
 
-/*
-function movetoNext(current, nextFieldID) { 
-    console.log(`at field number ${fieldNumber}`);
-    fieldNumber += 1;
-    // get children nodes and the current field
-    var childNodes = document.getElementById("row"+rowNumber).getElementsByTagName(`*`); 
-    if (current.value.length >= current.maxLength && nextFieldID != 5) {  
-        console.log(`printing here`);
-        document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[nextFieldID].focus();
-        document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber].disabled = !disabled;
-    }  
-}
-*/
-
+// deleting the current character and moving to previous field
 function moveToPrevious(){
-    console.log(`pressing delete`);
-    var childNodes = document.getElementById("row"+rowNumber).getElementsByTagName('input');
-    if (fieldNumber != 0){
+   console.log(`at field number ${fieldNumber}`);
+    if (fieldNumber > 0){
         document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber-1].value = "";
-        document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber-1].disabled = false;
-        document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber-1].focus();
+        // if the current field number is less than the max, focus the current field
+        if (fieldNumber < maxFieldNumber){
+            document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber].focus();
+        } else {
+            // else, focus the previous field
+            document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber-1].focus();
+        }
+        // decrement field number
         fieldNumber -= 1;
-        console.log(`moving onto field ${fieldNumber}`);
     }
 }
 
+// getting input from the buttons
 function addInput(letter){
-    console.log(`the letter selected is ${letter} wihe the field ${fieldNumber}`);
-    
-    if (fieldNumber >= maxFieldNumber){
-       return;
-    } else {
+    // if the current field number is less than the max, then display the letter
+    if (fieldNumber < maxFieldNumber){
+        // add input to the current field and move current field to the next
         document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber].value = letter;
-        //document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber].focus;
         fieldNumber+=1;
-    }
+    } 
 }
 
 
-
+// getting input from the keyboard, called by the listener when a key is pressed 
 function addInputFromKeyboard(e){
-    if(e.key == "Delete") {
-        alert('Delete key released');
-        return;
+    // check to see if user hit the enter key and the fields are all filled up
+    if (e.which == 13 && fieldNumber == 5){
+        getInput();
+    } else if (e.keyCode == 13){
+        // if the user hit the enter key but they haven't filled the squares, error message pops up
+        document.getElementById(`message`).innerHTML = "Please fill in all squares";
+    } else {
+        // TODO -- only allow letters, nothing else
+        // if the user hits any other key, add to input
+        addInput(String.fromCharCode(e.which)); 
     }
-   addInput(String.fromCharCode(e.which)); 
-    
 }
 
-function checkKey(){
-    if(e.keyCode == 8) {
-        alert('Delete key released');
-        return;
-    }
-}
 
 
 async function main(){
@@ -237,11 +225,26 @@ async function main(){
     const value = await fetchWord();
     word = value[0];
    
-  
-   
-  //  document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber].focus;
 
-    //console.log(`the word is ${word}`);
+    let down = false;
+    // add an event listener to the body of the page, waiting for a keydown event
+    document.getElementById(`body`).addEventListener('keydown', function(event){
+        // turn repeat off (can't press down anymore)
+        if(down) return;
+        down = true;
+        if (event.keyCode == 8){
+            console.log("backspace was pressed");
+            moveToPrevious();
+        } else {
+            console.log(`${event.key} was pressed`);
+            addInputFromKeyboard(event);
+        }
+    });
+
+    document.addEventListener('keyup', function () {
+        down = false;
+    }, false);
+ 
     
 }
 
