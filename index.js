@@ -117,7 +117,14 @@ function checkInput(str){
         else if (word.includes(str[i])){
             // if the input has more letters than necessary, leave color
             if (Number(inputMap.get(str[i])) >  Number(map.get(str[i]))){
-                changeColourInput("rgb(73, 73, 73)", i);
+                if (i >= Number(inputMap.get(str[i]))){
+                    // keep as gray
+                    changeColourInput("rgb(73, 73, 73)", i);
+                } else {
+                    // change to yellow
+                    changeColourInput("rgb(255, 218, 36)", i);
+                    changeColourKeyboard("rgb(255, 218, 36)", str[i]);
+                }
                
             } else {
                 // get all the yellow values
@@ -200,7 +207,7 @@ async function main(){
     word = value[0];
    
   
-    //word = "hello";
+    word = "bunny";
 
     //console.log(`the word is ${word}`);
     
