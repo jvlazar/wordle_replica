@@ -22,21 +22,23 @@ async function fetchWord(){
 
 
 function setAvailability(rownum){
-    console.log(`changing avialability of ${rowNumber} row`)
-    var childNodes = document.getElementById("row"+rownum).getElementsByTagName(`*`);
-        for (let i = 0; i < childNodes.length; i++){
-            // enabling the current row's fields 
-            childNodes[i].disabled = !childNodes[i].disabled;
-        }
-        if (rownum != 1){
-            childNodes[0].focus();
-        }
+    console.log(`changing avialability of ${rowNumber} row`);
+    //document.getElementById("row"+rowNumber).getElementsByTagName(`*`)[0].disabled = true;
+    document.getElementById("row"+(rowNumber)).getElementsByTagName(`*`)[0].disabled = true;
+    /*
+    for (let i = 0; i < childNodes.length; i++){
+        // enabling the current row's fields 
+        childNodes[i].disabled = !childNodes[i].disabled;
+    }
+    */
+    //    document.getElementById("row"+rowNumber).getElementsByTagName(`*`)[0].focus;
+    
         fieldNumber = 0;
        
 }
 
 
-  
+
 // for keyboard input
 function getInput(){
   
@@ -45,35 +47,36 @@ function getInput(){
     // getting all the elements from the current row
     let ustr = "";
     
-        var childNodes = document.getElementById("row"+rowNumber).getElementsByTagName(`*`);
-        for (let i = 0; i < childNodes.length; i++){
-            // storing value of current node
-            ustr += childNodes[i].value;
-            // disabling the current row's fields 
-            childNodes[i].disabled = true;
-        }
+    var childNodes = document.getElementById("row"+rowNumber).getElementsByTagName(`input`);
+    for (let i = 0; i < childNodes.length; i++){
+        // storing value of current node
+        ustr += childNodes[i].value;
+        // disabling the current row's fields 
+       
+        childNodes[i].disabled = false;
+    }
          
-        ustr=ustr.toLowerCase();
-        // the user hasn't filled all squares out
-        if (ustr.length != 5){
-            document.getElementById(`message`).innerHTML = "Please fill in all squares";
+    ustr=ustr.toLowerCase();
+    // the user hasn't filled all squares out
+    if (ustr.length != 5){
+        document.getElementById(`message`).innerHTML = "Please fill in all squares";
+        setAvailability(rowNumber);
+        return;
+    } else {
+        if (checkInput(ustr)){
+            document.getElementById("message").innerHTML = `SUCCESS! The word is "${word}"`;
+            if (rowNumber == maxRowNumber){
+                    setAvailability(rowNumber);
+            }
+            return;
+        } else if (rowNumber <= maxRowNumber){
+            setAvailability(rowNumber);
+        } else {
+            document.getElementById(`message`).innerHTML = `You've run out of guesses. The correct word is "${word}"`;
             setAvailability(rowNumber);
             return;
-        } else {
-            if (checkInput(ustr)){
-                document.getElementById("message").innerHTML = `SUCCESS! The word is "${word}"`;
-                if (rowNumber == maxRowNumber){
-                     setAvailability(rowNumber);
-                }
-                return;
-            } else if (rowNumber <= maxRowNumber){
-                setAvailability(rowNumber);
-            } else {
-                document.getElementById(`message`).innerHTML = `You've run out of guesses. The correct word is "${word}"`;
-                setAvailability(rowNumber);
-                return;
-            }
         }
+    }
 }
 
 // compare user input to word
@@ -158,34 +161,59 @@ function changeColourKeyboard(colour, id){
     document.getElementById(id).style.backgroundColor = colour;
 }
 
-
+/*
 function movetoNext(current, nextFieldID) { 
+    console.log(`at field number ${fieldNumber}`);
     fieldNumber += 1;
     // get children nodes and the current field
     var childNodes = document.getElementById("row"+rowNumber).getElementsByTagName(`*`); 
     if (current.value.length >= current.maxLength && nextFieldID != 5) {  
+        console.log(`printing here`);
         document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[nextFieldID].focus();
-   
+        document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber].disabled = !disabled;
     }  
 }
-
+*/
 
 function moveToPrevious(){
     console.log(`pressing delete`);
     var childNodes = document.getElementById("row"+rowNumber).getElementsByTagName('input');
     if (fieldNumber != 0){
         document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber-1].value = "";
+        document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber-1].disabled = false;
         document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber-1].focus();
         fieldNumber -= 1;
+        console.log(`moving onto field ${fieldNumber}`);
     }
 }
 
 function addInput(letter){
-    console.log(`the letter selected is ${letter}`);
-    if (fieldNumber <= maxFieldNumber){
+    console.log(`the letter selected is ${letter} wihe the field ${fieldNumber}`);
+    
+    if (fieldNumber >= maxFieldNumber){
+       return;
+    } else {
         document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber].value = letter;
-        //document.getElementById("field"+fieldNumber).value = letter;
+        //document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber].focus;
         fieldNumber+=1;
+    }
+}
+
+
+
+function addInputFromKeyboard(e){
+    if(e.key == "Delete") {
+        alert('Delete key released');
+        return;
+    }
+   addInput(String.fromCharCode(e.which)); 
+    
+}
+
+function checkKey(){
+    if(e.keyCode == 8) {
+        alert('Delete key released');
+        return;
     }
 }
 
@@ -200,6 +228,9 @@ async function main(){
         for (var i = 0; i < inputs.length; i++) {
             // deal with inputs[index] element.
             inputs[i].value = "";
+            if (i != 0){
+                inputs[i].disabled = true;
+            }
         }
     }
     
@@ -207,7 +238,8 @@ async function main(){
     word = value[0];
    
   
-    word = "bunny";
+   
+  //  document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber].focus;
 
     //console.log(`the word is ${word}`);
     

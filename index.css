@@ -36,6 +36,19 @@ input[type="text"]{
     font-size: 30px;
     text-align: center;
 }
+
+input[type="text"]:enabled {
+    border-color:red;
+    border-color: rgb(73, 73, 73);
+}
+
+input[type="text"]:focus {
+    outline: none;
+    caret-color: transparent
+   
+}
+
+
 /*
 #submit_button{
     border-radius: 10%;
