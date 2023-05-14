@@ -72,32 +72,27 @@ input[type="text"]:focus {
 }
 
 .keyboard{
-    background-color: red;
     width: 100%;   
-    display: inline;
-    
-   
 }
 
 .keyboard_row{
-   margin-top: 1%;
-  
-}
-
-#keyboard_row2{
+    margin-top: 1%;
+    display: inline-block;
+    width: 100%;
     text-align: center;
 }
 
-#keyboard_row1, #keyboard_row3{
-   text-align: center;
+#keyboard_row1 button {
+    width: 43px;
 }
+
 
 
 .keyboard_row button {
     cursor: pointer;
-    position: relative;
-    width: 30px;
-    height: 50px;
+    width: 43.6px;
+    height: 58px;
+    margin-left: 0.5%;
     text-align: center;
     border-radius: 10%;
     background-color: rgb(156, 156, 156);
@@ -105,11 +100,12 @@ input[type="text"]:focus {
     color: white;
     font-weight: bold;
     font-size: 20px;
+    vertical-align: top;
 }
 
 #submit_button{
     font-size: 15px;
-    width: 60px;
+    width: 65.4px;
 }
 
 #delete_button{
@@ -117,8 +113,7 @@ input[type="text"]:focus {
     background-repeat: no-repeat;
     background-size: 40px, 50px;
     background-position: center;
-    width: 70px;
-   
+    width: 65.4px;
 }
 
 #delete_button:hover{

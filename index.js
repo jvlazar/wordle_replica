@@ -208,7 +208,7 @@ function addInputFromKeyboard(e){
     } else if (e.keyCode == 13){
         // if the user hit the enter key but they haven't filled the squares, error message pops up
         messageTimer(`message`);
-    } else {
+    } else if ((e.keyCode >= 65 && e.keyCode <=90) ){
         // TODO -- only allow letters, nothing else
         // if the user hits any other key, add to input
         addInput(String.fromCharCode(e.which)); 
