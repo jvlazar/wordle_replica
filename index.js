@@ -37,6 +37,15 @@ function setAvailability(rownum){
        
 }
 
+function messageTimer(element){
+    setTimeout(function(){
+        document.getElementById(element).innerHTML = 'Not enough letters';
+    }, 1);
+    setTimeout(function(){
+        document.getElementById(element).innerHTML = '';
+    }, 2000);
+    console.log(`showing the message`);
+}
 
 
 // after clicking the enter button or getting the 
@@ -59,11 +68,13 @@ function getInput(){
     ustr=ustr.toLowerCase();
     // the user hasn't filled all squares out
     if (ustr.length != 5){
-        document.getElementById(`message`).innerHTML = "Please fill in all squares";
+       
+
         setAvailability(rowNumber);
         return;
     } else {
         if (checkInput(ustr)){
+            
             document.getElementById("message").innerHTML = `SUCCESS! The word is "${word}"`;
             if (rowNumber == maxRowNumber){
                     setAvailability(rowNumber);
@@ -196,7 +207,7 @@ function addInputFromKeyboard(e){
         getInput();
     } else if (e.keyCode == 13){
         // if the user hit the enter key but they haven't filled the squares, error message pops up
-        document.getElementById(`message`).innerHTML = "Please fill in all squares";
+        messageTimer(`message`);
     } else {
         // TODO -- only allow letters, nothing else
         // if the user hits any other key, add to input

@@ -43,6 +43,7 @@ input[type="text"]:enabled {
 
 input[type="text"]:focus {
     outline: none;
+    background-color: red;
     caret-color: transparent
    
 }
@@ -67,6 +68,7 @@ input[type="text"]:focus {
     font-size: 40px;
     display: block;
     text-align: center;
+   
 }
 
 .keyboard{
