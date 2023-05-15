@@ -6,6 +6,7 @@ let fieldNumber = 0;
 
 // get random word
 async function fetchWord(){
+    // getting random word that's 5 letters long
     let url = 'https://random-word-api.vercel.app/api?words=1&length=5';
   
     try {
@@ -224,6 +225,7 @@ async function main(){
         }
     }
     
+    // getting the word
     const value = await fetchWord();
     word = value[0];
    
@@ -240,7 +242,7 @@ async function main(){
             addInputFromKeyboard(event);
         }
     });
-
+    // add event listener for keyup event, where we reset the "down" variable so user can press a key again
     document.addEventListener('keyup', function () {
         down = false;
     }, false);
