@@ -39,9 +39,11 @@ function setAvailability(rownum){
 
 function messageTimer(element){
     setTimeout(function(){
+        document.getElementById(element+"_div").style.opacity = 1;
         document.getElementById(element).innerHTML = 'Not enough letters';
     }, 1);
     setTimeout(function(){
+        document.getElementById(element+"_div").style.opacity = 0;
         document.getElementById(element).innerHTML = '';
     }, 2000);
     console.log(`showing the message`);
@@ -70,7 +72,7 @@ function getInput(){
     if (ustr.length != 5){
        
 
-        setAvailability(rowNumber);
+        fieldNumber = 0;
         return;
     } else {
         if (checkInput(ustr)){
@@ -207,7 +209,7 @@ function addInputFromKeyboard(e){
         getInput();
     } else if (e.keyCode == 13){
         // if the user hit the enter key but they haven't filled the squares, error message pops up
-        messageTimer(`message`);
+        messageTimer(`error_message`);
     } else if ((e.keyCode >= 65 && e.keyCode <=90) ){
         // TODO -- only allow letters, nothing else
         // if the user hits any other key, add to input
