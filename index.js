@@ -4,7 +4,7 @@ let maxRowNumber = 6;
 let maxFieldNumber = 5;
 let fieldNumber = 0;
 
-
+// get random word
 async function fetchWord(){
     let url = 'https://random-word-api.vercel.app/api?words=1&length=5';
   
@@ -19,42 +19,31 @@ async function fetchWord(){
 
 }
 
-
-// TODO - remove this, unnecessary
-function setAvailability(rownum){
-    console.log(`changing avialability of ${rowNumber} row`);
-    //document.getElementById("row"+rowNumber).getElementsByTagName(`*`)[0].disabled = true;
-    document.getElementById("row"+(rowNumber)).getElementsByTagName(`*`)[0].disabled = false;
-    /*
-    for (let i = 0; i < childNodes.length; i++){
-        // enabling the current row's fields 
-        childNodes[i].disabled = !childNodes[i].disabled;
-    }
-    */
-    //    document.getElementById("row"+rowNumber).getElementsByTagName(`*`)[0].focus;
-    
-        fieldNumber = 0;
-       
+// activates the shake property for the specific row, called when error message appears
+function shakeRow(rowNumber){
+    document.getElementById("row"+rowNumber).style.animation = "shake 0.5s";
+    document.getElementById("row"+rowNumber).style.animationIterationCount = 2;
 }
 
+// timer for error message
 function messageTimer(element){
+    console.log(`error message`);
     setTimeout(function(){
         document.getElementById(element+"_div").style.opacity = 1;
         document.getElementById(element).innerHTML = 'Not enough letters';
+        shakeRow(rowNumber);
     }, 1);
+    
     setTimeout(function(){
         document.getElementById(element+"_div").style.opacity = 0;
         document.getElementById(element).innerHTML = '';
     }, 2000);
-    console.log(`showing the message`);
 }
 
 
-// after clicking the enter button or getting the 
+// after clicking the enter button or clicking the enter key on keyboard
 function getInput(){
   
-    document.getElementById(`message`).innerHTML = "";
-   
     // getting all the elements from the current row
     let ustr = "";
     
@@ -70,8 +59,6 @@ function getInput(){
     ustr=ustr.toLowerCase();
     // the user hasn't filled all squares out
     if (ustr.length != 5){
-       
-
         fieldNumber = 0;
         return;
     } else {
@@ -79,14 +66,14 @@ function getInput(){
             
             document.getElementById("message").innerHTML = `SUCCESS! The word is "${word}"`;
             if (rowNumber == maxRowNumber){
-                    setAvailability(rowNumber);
+                fieldNumber = 0;
             }
             return;
         } else if (rowNumber <= maxRowNumber){
-            setAvailability(rowNumber);
+            fieldNumber = 0;
         } else {
             document.getElementById(`message`).innerHTML = `You've run out of guesses. The correct word is "${word}"`;
-            setAvailability(rowNumber);
+            fieldNumber = 0;
             return;
         }
     }
@@ -94,7 +81,6 @@ function getInput(){
 
 // compare user input to word
 function checkInput(str){
-    console.log(`row number is ${rowNumber}`);
     // storing the letters and values of word in map
     var map = new Map();
     var inputMap = new Map();
@@ -122,8 +108,7 @@ function checkInput(str){
         }
     }
 
-    // TODO -- fix bug where yellow first appears, then if you add the same letter twice, it remains gray
-    // get all the green values
+    
     for (let i = 0; i < str.length; i++){
         if (str[i] == word[i]){
             changeColourInput("green", (i));
@@ -157,7 +142,6 @@ function checkInput(str){
         return true;
     } else {
         rowNumber+=1;
-        console.log(`increasing number to ${rowNumber}`);
         return false;
     }
 
@@ -176,7 +160,6 @@ function changeColourKeyboard(colour, id){
 
 // deleting the current character and moving to previous field
 function moveToPrevious(){
-   console.log(`at field number ${fieldNumber}`);
     if (fieldNumber > 0){
         document.getElementById("row"+rowNumber).getElementsByTagName(`input`)[fieldNumber-1].value = "";
         // if the current field number is less than the max, focus the current field
@@ -219,6 +202,8 @@ function addInputFromKeyboard(e){
 
 
 
+
+
 async function main(){
     // clears the fields on refresh
     window.onload = function() {
@@ -246,10 +231,8 @@ async function main(){
         if(down) return;
         down = true;
         if (event.keyCode == 8){
-            console.log("backspace was pressed");
             moveToPrevious();
         } else {
-            console.log(`${event.key} was pressed`);
             addInputFromKeyboard(event);
         }
     });
