@@ -22,9 +22,9 @@ h1 {
     background-color: white;
     width: 25%;
     height: 10%;
-    margin-top: -58%;
+    z-index: 99;
     display: flex;
-    transform: translate(148%, 0%);
+    transform: translate(148%);
     justify-content: center;
     align-items: center;
     border-radius: 5%;
@@ -37,10 +37,10 @@ h1 {
     font-size: 17px;
     text-align: center;
     font-weight: bold;
-  
 }
 
 .row {
+    position: relative;
     animation: none;
     animation-iteration-count: 2;
     display: flex;

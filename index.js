@@ -23,20 +23,24 @@ async function fetchWord(){
 function shakeRow(rowNumber){
     document.getElementById("row"+rowNumber).style.animation = "shake 0.5s";
     document.getElementById("row"+rowNumber).style.animationIterationCount = 2;
+    
 }
 
 // timer for error message
 function messageTimer(element){
     console.log(`error message`);
     setTimeout(function(){
+        document.getElementById(element+"_div").style.zIndex = 99;
         document.getElementById(element+"_div").style.opacity = 1;
         document.getElementById(element).innerHTML = 'Not enough letters';
         shakeRow(rowNumber);
     }, 1);
     
     setTimeout(function(){
+        document.getElementById(element+"_div").style.zIndex = 0;
         document.getElementById(element+"_div").style.opacity = 0;
         document.getElementById(element).innerHTML = '';
+        document.getElementById("row"+rowNumber).style.animation = "none";
     }, 2000);
 }
 
