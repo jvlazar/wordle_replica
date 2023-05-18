@@ -1,5 +1,6 @@
 body {
     background-color: rgb(49, 49, 49);
+
 }
 
 h1 {
@@ -11,9 +12,11 @@ h1 {
 
 .content {
     position: relative;
-    background-color: rgb(49, 49, 49);
     width: 50%;
-    margin-left: 25%;
+    margin: auto;
+    padding: auto;
+    max-height: 100vh;
+
 }
 
 .error_message_div {
@@ -77,7 +80,6 @@ input[type="text"]:enabled {
 
 input[type="text"]:focus {
     outline: none;
-    background-color: red;
     caret-color: transparent
 }
 
@@ -178,76 +180,89 @@ input[type="text"]:focus {
 }
 
 
-@media only screen and (max-width: 500px) {
-   
+@media only screen and (max-width: 600px) {
+
+
+    input[type="text"] {
+        margin-left: 1%;
+        margin-right: 1%;
+        margin-top: 1%;
+        size: 20%;
+
+    }
+
+    .keyboard {
+        margin: auto;
+        margin-top: -20px;
+
+    }
+
     .keyboard_row {
-        max-width: 100%;
-        display: block;
-        margin-top: 5px;  
-        margin-left: none;
-        margin-right: none;
-        background-color: red;   
+        width: 100%;
     }
 
     .keyboard_row button {
+        margin: auto;
+        margin-top: 1%;
         cursor: pointer;
-        max-width: 42px;
-        max-height: 42px;
-        background-color: rgb(154, 154, 228);
-     
+        max-width: 9%;
+        height: 40%;
+        text-align: center;
+        width: fit-content;
+        font-size: 130%;
+
     }
 
     #submit_button {
-        font-size: 15px;
-        max-width: 100px;
+        display: inline-block;
+        max-width: 14%;
+        font-size: 80%;
+        text-align: center;
+        width: fit-content;
     }
-    
+
     #delete_button {
         background-image: url("backspace.png");
         background-repeat: no-repeat;
         background-size: 40px, 50px;
         background-position: center;
-        max-width: 65.4px;
+        max-width: 14%;
     }
 }
 
-@media only screen and (max-width: 1000px) {
-    body {
-        width: 100%;
-        margin: auto;
-    }
+@media only screen and (max-width: 1200px) {
+
 
     .content {
         width: 100%;
         margin: auto;
+
     }
-    
-    .content input[type="text"]{
+
+    .content input[type="text"] {
         display: flex;
     }
 
-   
-    
+
     .keyboard_row {
+        margin-top: 1%;
         max-width: 100%;
         display: block;
         margin-left: 1px;
         margin-right: 1px;
-        margin-top: 5px;     
     }
-    
+
 
     .keyboard_row button {
         cursor: pointer;
         width: 43.6px;
         height: 58px;
     }
-    
+
     #submit_button {
-        font-size: 15px;
         width: 65.4px;
     }
-    
+
     #delete_button {
         background-image: url("backspace.png");
         background-repeat: no-repeat;
@@ -255,14 +270,13 @@ input[type="text"]:focus {
         background-position: center;
         width: 65.4px;
     }
-    
+
     #delete_button:hover {
         background-color: rgb(221, 221, 221);
     }
-    
+
     #delete_button:active {
         background-color: rgb(109, 109, 109);
     }
-    
-  }
 
+}
