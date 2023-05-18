@@ -79,7 +79,8 @@ function getInput() {
     ustr = ustr.toLowerCase();
     // the user hasn't filled all squares out
     if (ustr.length != 5) {
-        fieldNumber = 0;
+        
+        messageTimer(`error_message`);
         return;
     } else {
         if (checkInput(ustr)) {
