@@ -46,10 +46,12 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-   
+
 }
 
-input[type="text"]{
+
+
+input[type="text"] {
     background-color: rgb(73, 73, 73);
     border-color: rgb(73, 73, 73);
     color: white;
@@ -62,6 +64,10 @@ input[type="text"]{
     margin-right: 5px;
     font-size: 30px;
     text-align: center;
+    animation-name: none;
+    animation-duration: 0.5s;
+    animation-iteration-count: 2;
+
 }
 
 input[type="text"]:enabled {
@@ -72,10 +78,9 @@ input[type="text"]:focus {
     outline: none;
     background-color: red;
     caret-color: transparent
-   
 }
 
-.message{
+.message {
     color: white;
     font-size: 40px;
     display: block;
@@ -83,11 +88,11 @@ input[type="text"]:focus {
 }
 
 
-.keyboard{
-    width: 100%;   
+.keyboard {
+    width: 100%;
 }
 
-.keyboard_row{
+.keyboard_row {
     margin-top: 1%;
     display: inline-block;
     width: 100%;
@@ -99,7 +104,6 @@ input[type="text"]:focus {
 }
 
 
-
 .keyboard_row button {
     cursor: pointer;
     width: 43.6px;
@@ -108,19 +112,19 @@ input[type="text"]:focus {
     text-align: center;
     border-radius: 10%;
     background-color: rgb(156, 156, 156);
-    border:none;
+    border: none;
     color: white;
     font-weight: bold;
     font-size: 20px;
     vertical-align: top;
 }
 
-#submit_button{
+#submit_button {
     font-size: 15px;
     width: 65.4px;
 }
 
-#delete_button{
+#delete_button {
     background-image: url("backspace.png");
     background-repeat: no-repeat;
     background-size: 40px, 50px;
@@ -128,18 +132,46 @@ input[type="text"]:focus {
     width: 65.4px;
 }
 
-#delete_button:hover{
+#delete_button:hover {
     background-color: rgb(221, 221, 221);
 }
 
-#delete_button:active{
+#delete_button:active {
     background-color: rgb(109, 109, 109);
 }
 
 @keyframes shake {
-    0% { transform: translateX(0) }
-    25% { transform: translateX(5px) }
-    50% { transform: translateX(-5px) }
-    75% { transform: translateX(5px) }
-    100% { transform: translateX(0) }
+    0% {
+        transform: translateX(0)
+    }
+
+    25% {
+        transform: translateX(5px)
+    }
+
+    50% {
+        transform: translateX(-5px)
+    }
+
+    75% {
+        transform: translateX(5px)
+    }
+
+    100% {
+        transform: translateX(0)
+    }
+}
+
+@keyframes flip {
+    0% {
+        transform: scaleY(100%);
+    }
+
+    50% {
+        transform: scaleY(0);
+    }
+
+    100% {
+        transform: scaleY(100%);
+    }
 }
