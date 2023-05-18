@@ -177,6 +177,40 @@ input[type="text"]:focus {
     }
 }
 
+
+@media only screen and (max-width: 500px) {
+   
+    .keyboard_row {
+        max-width: 100%;
+        display: block;
+        margin-top: 5px;  
+        margin-left: none;
+        margin-right: none;
+        background-color: red;   
+    }
+
+    .keyboard_row button {
+        cursor: pointer;
+        max-width: 42px;
+        max-height: 42px;
+        background-color: rgb(154, 154, 228);
+     
+    }
+
+    #submit_button {
+        font-size: 15px;
+        max-width: 100px;
+    }
+    
+    #delete_button {
+        background-image: url("backspace.png");
+        background-repeat: no-repeat;
+        background-size: 40px, 50px;
+        background-position: center;
+        max-width: 65.4px;
+    }
+}
+
 @media only screen and (max-width: 1000px) {
     body {
         width: 100%;
@@ -192,9 +226,7 @@ input[type="text"]:focus {
         display: flex;
     }
 
-    .keyboard {
-        width: 100%;
-    }
+   
     
     .keyboard_row {
         max-width: 100%;
@@ -233,3 +265,4 @@ input[type="text"]:focus {
     }
     
   }
+
