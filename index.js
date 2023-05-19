@@ -20,6 +20,12 @@ async function fetchWord() {
 
 }
 
+// checks to see if input word is valid
+function checkValid(str){
+   
+    return true;
+}
+
 // activates the shake property for the specific row, called when error message appears
 function shakeRow(rowNumber) {
     document.getElementById("row" + rowNumber).style.animation = "shake 0.5s";
@@ -46,12 +52,12 @@ function flipInputs(rowNumber, fieldNumber) {
 }
 
 // timer for error message
-function messageTimer(element) {
+function messageTimer(element, text) {
     console.log(`error message`);
     setTimeout(function () {
         document.getElementById(element + "_div").style.zIndex = 99;
         document.getElementById(element + "_div").style.opacity = 1;
-        document.getElementById(element).innerHTML = 'Not enough letters';
+        document.getElementById(element).innerHTML = text;
         shakeRow(rowNumber);
     }, 1);
 
@@ -80,7 +86,7 @@ function getInput() {
     // the user hasn't filled all squares out
     if (ustr.length != 5) {
         
-        messageTimer(`error_message`);
+        messageTimer(`error_message`, 'Not enough letters');
         return;
     } else {
         if (checkInput(ustr)) {
@@ -129,6 +135,8 @@ function checkInput(str) {
         }
     }
 
+    // checking if the word is valid
+   
     // setting the delay
     let delay = 20;
     var childNodes = document.getElementById("row" + rowNumber).getElementsByTagName(`input`);
@@ -178,6 +186,9 @@ function checkInput(str) {
         rowNumber += 1;
         return false;
     }
+    
+
+
 
 }
 
@@ -229,7 +240,7 @@ function addInputFromKeyboard(e) {
         getInput();
     } else if (e.keyCode == 13) {
         // if the user hit the enter key but they haven't filled the squares, error message pops up
-        messageTimer(`error_message`);
+        messageTimer(`error_message`, `Not enough letters`);
     } else if ((e.keyCode >= 65 && e.keyCode <= 90)) {
         // TODO -- only allow letters, nothing else
         // if the user hits any other key, add to input
