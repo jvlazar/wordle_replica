@@ -68,7 +68,6 @@ input[type="text"] {
     animation-name: none;
     animation-duration: 0.5s;
     animation-iteration-count: 2;
-
 }
 
 input[type="text"]:enabled {
@@ -93,10 +92,11 @@ input[type="text"]:focus {
 }
 
 .keyboard_row {
-    margin-top: 1%;
+    margin-top: 0.5%;
     display: inline-block;
     width: 100%;
     text-align: center;
+    vertical-align: middle;
 }
 
 #keyboard_row1 button {
@@ -108,7 +108,7 @@ input[type="text"]:focus {
     cursor: pointer;
     width: 43.6px;
     height: 58px;
-    margin-left: 0.5%;
+    margin: auto;
     text-align: center;
     border-radius: 10%;
     background-color: rgb(156, 156, 156);
@@ -132,13 +132,6 @@ input[type="text"]:focus {
     width: 65.4px;
 }
 
-#delete_button:hover {
-    background-color: rgb(221, 221, 221);
-}
-
-#delete_button:active {
-    background-color: rgb(109, 109, 109);
-}
 
 @keyframes shake {
     0% {
@@ -177,7 +170,7 @@ input[type="text"]:focus {
 }
 
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 500px) {
     .container {
         max-width: 80%;
         margin: auto;
@@ -277,6 +270,7 @@ input[type="text"]:focus {
         height: 58px;
         text-align: center;
     }
+
 
     #submit_button {
         width: 65.4px;
