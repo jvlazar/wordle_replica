@@ -1,6 +1,6 @@
 body {
     background-color: rgb(49, 49, 49);
-   
+
 }
 
 h1 {
@@ -12,11 +12,9 @@ h1 {
 
 .content {
     position: relative;
-    width: 50%;
+    max-width: 100%;
     margin: auto;
     padding: auto;
-    max-height: 100vh;
-
 }
 
 .error_message_div {
@@ -37,7 +35,7 @@ h1 {
 .error_message_div p {
     position: absolute;
     color: black;
-    font-size: 17px;
+    font-size: 1em;
     text-align: center;
     font-weight: bold;
 }
@@ -63,7 +61,6 @@ input[type="text"] {
     border-radius: 5%;
     border-style: solid;
     display: flex;
-    margin-left: 3px;
     margin-right: 3px;
     margin-top: 5px;
     font-size: 30px;
@@ -181,17 +178,17 @@ input[type="text"]:focus {
 
 
 @media only screen and (max-width: 600px) {
-    .row {
+    .container {
+        max-width: 80%;
         margin: auto;
-        margin-top: 2%;
-
-        display: grid;
-        column-gap: 5%;
-        grid-template-columns: repeat(5, minmax(5%, 11%));
-        justify-content: center;
     }
 
-
+    .row {
+        margin-top: 2%;
+        display: flex;
+        max-width: 100%;
+        justify-content: center;
+    }
 
     .row input[type="text"] {
         width: 100%;
@@ -208,7 +205,6 @@ input[type="text"]:focus {
         justify-content: center;
         column-gap: 1%;
         grid-template-columns: repeat(10, minmax(5%, 8.5%));
-
     }
 
     #keyboard_row2 {
@@ -217,7 +213,6 @@ input[type="text"]:focus {
         column-gap: 1%;
         grid-template-columns: repeat(9, minmax(6%, 8.5%));
         grid-template-rows: 100%;
-
         justify-content: center;
     }
 
@@ -226,7 +221,6 @@ input[type="text"]:focus {
         display: grid;
         column-gap: 1%;
         grid-template-columns: repeat(9, minmax(5%, 9.5%));
-
         justify-content: center;
 
     }
@@ -237,7 +231,6 @@ input[type="text"]:focus {
         cursor: pointer;
         max-width: 100%;
         font-size: 4vw;
-
     }
 
 
@@ -245,7 +238,6 @@ input[type="text"]:focus {
     #keyboard_row3 #submit_button {
         font-size: 2vw;
         max-width: 100%;
-
     }
 
     #keyboard_row3 #delete_button {
