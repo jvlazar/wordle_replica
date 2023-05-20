@@ -117,6 +117,7 @@ input[type="text"]:focus {
     font-weight: bold;
     font-size: 20px;
     vertical-align: top;
+    touch-action: manipulation;
 }
 
 #submit_button {
