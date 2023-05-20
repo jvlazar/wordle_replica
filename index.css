@@ -116,7 +116,7 @@ input[type="text"]:focus {
     color: white;
     font-weight: bold;
     font-size: 20px;
-    vertical-align: top;
+    vertical-align: middle;
     touch-action: manipulation;
 }
 
@@ -225,6 +225,7 @@ input[type="text"]:focus {
         cursor: pointer;
         max-width: 100%;
         font-size: 4vw;
+        text-align: center;
     }
 
 
@@ -232,6 +233,7 @@ input[type="text"]:focus {
     #keyboard_row3 #submit_button {
         font-size: 2vw;
         max-width: 100%;
+        text-align: center;
     }
 
     #keyboard_row3 #delete_button {
@@ -285,12 +287,5 @@ input[type="text"]:focus {
         width: 65.4px;
     }
 
-    #delete_button:hover {
-        background-color: rgb(221, 221, 221);
-    }
-
-    #delete_button:active {
-        background-color: rgb(109, 109, 109);
-    }
 
 }
