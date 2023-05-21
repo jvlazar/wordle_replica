@@ -1,8 +1,10 @@
-let word;
+let answerWord;
 let rowNumber = 1;
 let maxRowNumber = 6;
 let maxFieldNumber = 5;
 let fieldNumber = 0;
+let isValid;
+let guessWord;
 
 // get random word
 async function fetchWord() {
@@ -17,13 +19,27 @@ async function fetchWord() {
     catch (error) {
         console.error(error);
     }
-
 }
 
+//console.log(obj[0])
 // checks to see if input word is valid
-function checkValid(str){
-   
-    return true;
+async function checkValid(str){
+    try {
+        let url = `https://api.dictionaryapi.dev/api/v2/entries/en/${str}`;
+        const response = await fetch(url);
+       //console.log(`response status is ${response.status}`);
+        if(response.status == 200){
+            const value = await response.json();
+            //console.log(`the value is ${value[0].word}`)
+            return value;
+        } else {
+            return -1;
+        }
+       
+    } catch (error){
+     
+    }
+    
 }
 
 // activates the shake property for the specific row, called when error message appears
@@ -71,7 +87,7 @@ function messageTimer(element, text) {
 
 
 // after clicking the enter button or clicking the enter key on keyboard
-function getInput() {
+async function getInput() {
 
     // getting all the elements from the current row
     let ustr = "";
@@ -89,39 +105,50 @@ function getInput() {
         messageTimer(`error_message`, 'Not enough letters');
         return;
     } else {
-        if (checkInput(ustr)) {
+            // check if valid
+        let result = await checkValid(ustr);
+        if (result != -1){
+            if (result[0].word == ustr){
+                if (checkInput(ustr)) {
 
-            document.getElementById("message").innerHTML = `SUCCESS! The word is "${word}"`;
-            if (rowNumber == maxRowNumber) {
-                fieldNumber = 0;
-            }
-            return;
-        } else if (rowNumber <= maxRowNumber) {
-            fieldNumber = 0;
+                    document.getElementById("message").innerHTML = `SUCCESS! The word is "${answerWord}"`;
+                    if (rowNumber == maxRowNumber) {
+                        fieldNumber = 0;
+                    }
+                    return;
+                } else if (rowNumber <= maxRowNumber) {
+                    fieldNumber = 0;
+                } else {
+                    document.getElementById(`message`).innerHTML = `You've run out of guesses. The correct word is "${answerWord}"`;
+                    fieldNumber = 0;
+                    return;
+                }
+            } 
         } else {
-            document.getElementById(`message`).innerHTML = `You've run out of guesses. The correct word is "${word}"`;
-            fieldNumber = 0;
+            messageTimer(`error_message`, 'Not a valid word');
             return;
         }
-    }
+    } 
 }
+
 
 // compare user input to word
 function checkInput(str) {
+   
     // storing the letters and values of word in map
     var map = new Map();
     var inputMap = new Map();
     var greenCount = 0;
 
     // get the number of times each letter appears
-    for (let i = 0; i < word.length; i++) {
+    for (let i = 0; i < answerWord.length; i++) {
         // if the map doens't contain the letter, add to map
-        if (!map.has(word[i])) {
-            map.set(word[i], 1);
+        if (!map.has(answerWord[i])) {
+            map.set(answerWord[i], 1);
         } else {
             // map has the word, update the value
-            var count = map.get(word[i]) + 1;
-            map.set(word[i], count);
+            var count = map.get(answerWord[i]) + 1;
+            map.set(answerWord[i], count);
         }
     }
 
@@ -137,60 +164,61 @@ function checkInput(str) {
 
     // checking if the word is valid
    
+
+  
     // setting the delay
-    let delay = 20;
-    var childNodes = document.getElementById("row" + rowNumber).getElementsByTagName(`input`);
+        let delay = 20;
+        var childNodes = document.getElementById("row" + rowNumber).getElementsByTagName(`input`);
 
-    // checking to see if each letter is in the correct position or not
-    for (let i = 0; i < str.length; i++) {
-        // flipping the current child node
-        childNodes[i].style.animation = "flip 0.5s";
-        childNodes[i].style.animationDelay = delay + "ms";
+        // checking to see if each letter is in the correct position or not
+        for (let i = 0; i < str.length; i++) {
+            // flipping the current child node
+            childNodes[i].style.animation = "flip 0.5s";
+            childNodes[i].style.animationDelay = delay + "ms";
 
-        // change color after the delay, so the colour change matches with the flip animation
-        setTimeout(function () {
-            if (str[i] == word[i]) {
-                changeColourInput("green", (i), delay, rowNumber - 1);
-                changeColourKeyboard("green", str[i]);
-                greenCount++;
-            }
-            else if (word.includes(str[i])) {
-                // if the input has more letters than necessary, leave color
-                if (Number(inputMap.get(str[i])) > Number(map.get(str[i]))) {
-                    if (i >= Number(inputMap.get(str[i]))) {
-                        // keep as gray
-                        changeColourInput("rgb(73, 73, 73)", i, delay, rowNumber - 1);
+            // change color after the delay, so the colour change matches with the flip animation
+            setTimeout(function () {
+                if (str[i] == answerWord[i]) {
+                    changeColourInput("green", (i), delay, rowNumber - 1);
+                    changeColourKeyboard("green", str[i]);
+                    greenCount++;
+                }
+                else if (answerWord.includes(str[i])) {
+                    // if the input has more letters than necessary, leave color
+                    if (Number(inputMap.get(str[i])) > Number(map.get(str[i]))) {
+                        if (i >= Number(inputMap.get(str[i]))) {
+                            // keep as gray
+                            changeColourInput("rgb(73, 73, 73)", i, delay, rowNumber - 1);
+                        } else {
+                            // change to yellow
+                            changeColourInput("rgb(255, 218, 36)", i, delay, rowNumber - 1);
+                            changeColourKeyboard("rgb(255, 218, 36)", str[i]);
+                        }
+
                     } else {
-                        // change to yellow
+                        // get all the yellow values
                         changeColourInput("rgb(255, 218, 36)", i, delay, rowNumber - 1);
                         changeColourKeyboard("rgb(255, 218, 36)", str[i]);
                     }
-
                 } else {
-                    // get all the yellow values
-                    changeColourInput("rgb(255, 218, 36)", i, delay, rowNumber - 1);
-                    changeColourKeyboard("rgb(255, 218, 36)", str[i]);
+                    // the letter does not appear in the word
+                    changeColourKeyboard("rgb(110, 110, 110)", str[i]);
                 }
-            } else {
-                // the letter does not appear in the word
-                changeColourKeyboard("rgb(110, 110, 110)", str[i]);
-            }
-        }, delay);
-        delay += 350;
-
+            }, delay);
+            delay += 350;
+            
+        }
+        if (greenCount == 5) {
+            return true;
+        } else {
+            rowNumber += 1;
+            return false;
+        }
     }
-
-    if (greenCount == 5) {
-        return true;
-    } else {
-        rowNumber += 1;
-        return false;
-    }
-    
+   
+        
 
 
-
-}
 
 // changes colour of the fields according to response
 function changeColourInput(colour, id, delay, rownum) {
@@ -270,7 +298,7 @@ async function main() {
 
     // getting the word
     const value = await fetchWord();
-    word = value[0];
+    answerWord = value[0];
 
 
     let down = false;
