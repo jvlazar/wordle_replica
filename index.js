@@ -3,8 +3,8 @@ let rowNumber = 1;
 let maxRowNumber = 6;
 let maxFieldNumber = 5;
 let fieldNumber = 0;
-let isValid;
-let guessWord;
+
+
 
 // get random word
 async function fetchWord() {
@@ -21,7 +21,6 @@ async function fetchWord() {
     }
 }
 
-//console.log(obj[0])
 // checks to see if input word is valid
 async function checkValid(str){
     try {
@@ -108,9 +107,11 @@ async function getInput() {
             // check if valid
         let result = await checkValid(ustr);
         if (result != -1){
-            if (result[0].word == ustr){
-                if (checkInput(ustr)) {
 
+            if (result[0].word == ustr){
+                
+                if (checkInput(ustr)) {
+                    
                     document.getElementById("message").innerHTML = `SUCCESS! The word is "${answerWord}"`;
                     if (rowNumber == maxRowNumber) {
                         fieldNumber = 0;
@@ -118,6 +119,7 @@ async function getInput() {
                     return;
                 } else if (rowNumber <= maxRowNumber) {
                     fieldNumber = 0;
+                    return;
                 } else {
                     document.getElementById(`message`).innerHTML = `You've run out of guesses. The correct word is "${answerWord}"`;
                     fieldNumber = 0;
@@ -138,7 +140,7 @@ function checkInput(str) {
     // storing the letters and values of word in map
     var map = new Map();
     var inputMap = new Map();
-    var greenCount = 0;
+   
 
     // get the number of times each letter appears
     for (let i = 0; i < answerWord.length; i++) {
@@ -162,10 +164,6 @@ function checkInput(str) {
         }
     }
 
-    // checking if the word is valid
-   
-
-  
     // setting the delay
         let delay = 20;
         var childNodes = document.getElementById("row" + rowNumber).getElementsByTagName(`input`);
@@ -181,7 +179,6 @@ function checkInput(str) {
                 if (str[i] == answerWord[i]) {
                     changeColourInput("green", (i), delay, rowNumber - 1);
                     changeColourKeyboard("green", str[i]);
-                    greenCount++;
                 }
                 else if (answerWord.includes(str[i])) {
                     // if the input has more letters than necessary, leave color
@@ -204,19 +201,18 @@ function checkInput(str) {
                     // the letter does not appear in the word
                     changeColourKeyboard("rgb(110, 110, 110)", str[i]);
                 }
+                
             }, delay);
             delay += 350;
-            
         }
-        if (greenCount == 5) {
+        
+        rowNumber += 1;
+        if (str == answerWord) {
             return true;
         } else {
-            rowNumber += 1;
             return false;
-        }
-    }
-   
-        
+        }         
+}
 
 
 
@@ -299,6 +295,7 @@ async function main() {
     // getting the word
     const value = await fetchWord();
     answerWord = value[0];
+    console.log(`the word is ${answerWord}`);
 
 
     let down = false;
