@@ -45,8 +45,8 @@ async function checkValid(str){
 function shakeRow(rowNumber) {
     document.getElementById("row" + rowNumber).style.animation = "shake 0.5s";
     document.getElementById("row" + rowNumber).style.animationIterationCount = 2;
-
 }
+
 
 function flipInputs(rowNumber, fieldNumber) {
     console.log(`row number is ${rowNumber}`);
@@ -234,6 +234,7 @@ function changeColourKeyboard(colour, id) {
 function moveToPrevious() {
     if (fieldNumber > 0) {
         document.getElementById("row" + rowNumber).getElementsByTagName(`input`)[fieldNumber - 1].value = "";
+        document.getElementById("row" + rowNumber).getElementsByTagName(`input`)[fieldNumber-1].style.animation = "none";
         // if the current field number is less than the max, focus the current field
         if (fieldNumber < maxFieldNumber) {
             document.getElementById("row" + rowNumber).getElementsByTagName(`input`)[fieldNumber].focus();
@@ -249,13 +250,14 @@ function moveToPrevious() {
 // getting input from the buttons
 function addInput(letter) {
     // if the current field number is less than the max, then display the letter
+    
     if (fieldNumber < maxFieldNumber) {
         // add input to the current field and move current field to the next
+        document.getElementById("row" + rowNumber).getElementsByTagName(`input`)[fieldNumber].style.animation = "pulse 0.25s";
         document.getElementById("row" + rowNumber).getElementsByTagName(`input`)[fieldNumber].value = letter;
         fieldNumber += 1;
     }
 }
-
 
 // getting input from the keyboard, called by the listener when a key is pressed 
 function addInputFromKeyboard(e) {
