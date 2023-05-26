@@ -185,7 +185,7 @@ function checkInput(str) {
                     if (Number(inputMap.get(str[i])) > Number(map.get(str[i]))) {
                         if (i >= Number(inputMap.get(str[i]))) {
                             // keep as gray
-                            changeColourInput("rgb(73, 73, 73)", i, delay, rowNumber - 1);
+                            changeColourInput("rgb(114, 114, 114)", i, delay, rowNumber - 1);
                         } else {
                             // change to yellow
                             changeColourInput("rgb(255, 218, 36)", i, delay, rowNumber - 1);
