@@ -179,13 +179,15 @@ function checkInput(str) {
                 if (str[i] == answerWord[i]) {
                     changeColourInput("green", (i), delay, rowNumber - 1);
                     changeColourKeyboard("green", str[i]);
+                    greenArray.push(str[i]);
                 }
                 else if (answerWord.includes(str[i])) {
+                 
                     // if the input has more letters than necessary, leave color
                     if (Number(inputMap.get(str[i])) > Number(map.get(str[i]))) {
-                        if (i >= Number(inputMap.get(str[i]))) {
+                        if (i > Number(inputMap.get(str[i]))) {
                             // keep as gray
-                            changeColourInput("rgb(114, 114, 114)", i, delay, rowNumber - 1);
+                             changeColourKeyboard("rgb(110, 110, 110)", str[i]);
                         } else {
                             // change to yellow
                             changeColourInput("rgb(255, 218, 36)", i, delay, rowNumber - 1);
