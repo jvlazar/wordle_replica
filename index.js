@@ -179,7 +179,6 @@ function checkInput(str) {
                 if (str[i] == answerWord[i]) {
                     changeColourInput("green", (i), delay, rowNumber - 1);
                     changeColourKeyboard("green", str[i]);
-                    greenArray.push(str[i]);
                 }
                 else if (answerWord.includes(str[i])) {
                  
