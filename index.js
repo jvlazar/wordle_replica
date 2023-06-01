@@ -48,22 +48,18 @@ function shakeRow(rowNumber) {
 }
 
 
-function flipInputs(rowNumber, fieldNumber) {
-    console.log(`row number is ${rowNumber}`);
+
+// final animation for getting answer correct
+function waveFinal(rowNumber) {
     let delay = 20;
     var childNodes = document.getElementById("row" + rowNumber).getElementsByTagName(`input`);
     for (let i = 0; i < childNodes.length; i++) {
         // storing value of current node
-
-        childNodes[i].style.animation = "flip 0.5s";
+        childNodes[i].style.animation = "wave 0.5s";
         childNodes[i].style.animationDelay = delay + "ms";
-        delay += 350;
-        console.log(`at the ${i} position`);
+        delay += 30;
+        //console.log(`at the ${i} position`);
     }
-
-    //document.getElementById("field" + fieldNumber).style.animation = "flip 0.5s";
-    //document.getElementById("row" + rowNumber).getElementsByClassName("field" + fieldNumber).style.animationIterationCount = 2;
-
 }
 
 // timer for error message
@@ -113,9 +109,9 @@ async function getInput() {
                 if (checkInput(ustr)) {
 
                     document.getElementById("message").innerHTML = `SUCCESS! The word is "${answerWord}"`;
-                    if (rowNumber == maxRowNumber) {
-                        fieldNumber = 0;
-                    }
+                    setTimeout(function () {
+                        waveFinal(rowNumber - 1);
+                    }, 2000)
                     return;
                 } else if (rowNumber <= maxRowNumber) {
                     fieldNumber = 0;
@@ -324,7 +320,7 @@ async function main() {
     // getting the word
     const value = await fetchWord();
     answerWord = value[0];
-    //console.log(`the word is ${answerWord}`);
+    console.log(`the word is ${answerWord}`);
 
 
     let down = false;
