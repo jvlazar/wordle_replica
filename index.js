@@ -22,23 +22,23 @@ async function fetchWord() {
 }
 
 // checks to see if input word is valid
-async function checkValid(str){
+async function checkValid(str) {
     try {
         let url = `https://api.dictionaryapi.dev/api/v2/entries/en/${str}`;
         const response = await fetch(url);
-       //console.log(`response status is ${response.status}`);
-        if(response.status == 200){
+        //console.log(`response status is ${response.status}`);
+        if (response.status == 200) {
             const value = await response.json();
             //console.log(`the value is ${value[0].word}`)
             return value;
         } else {
             return -1;
         }
-       
-    } catch (error){
-     
+
+    } catch (error) {
+
     }
-    
+
 }
 
 // activates the shake property for the specific row, called when error message appears
@@ -100,18 +100,18 @@ async function getInput() {
     ustr = ustr.toLowerCase();
     // the user hasn't filled all squares out
     if (ustr.length != 5) {
-        
+
         messageTimer(`error_message`, 'Not enough letters');
         return;
     } else {
-            // check if valid
+        // check if valid
         let result = await checkValid(ustr);
-        if (result != -1){
+        if (result != -1) {
 
-            if (result[0].word == ustr){
-                
+            if (result[0].word == ustr) {
+
                 if (checkInput(ustr)) {
-                    
+
                     document.getElementById("message").innerHTML = `SUCCESS! The word is "${answerWord}"`;
                     if (rowNumber == maxRowNumber) {
                         fieldNumber = 0;
@@ -125,22 +125,22 @@ async function getInput() {
                     fieldNumber = 0;
                     return;
                 }
-            } 
+            }
         } else {
             messageTimer(`error_message`, 'Not a valid word');
             return;
         }
-    } 
+    }
 }
 
 
 // compare user input to word
 function checkInput(str) {
-   
+
     // storing the letters and values of word in map
     var map = new Map();
     var inputMap = new Map();
-   
+
 
     // get the number of times each letter appears
     for (let i = 0; i < answerWord.length; i++) {
@@ -165,54 +165,80 @@ function checkInput(str) {
     }
 
     // setting the delay
-        let delay = 20;
-        var childNodes = document.getElementById("row" + rowNumber).getElementsByTagName(`input`);
+    let delay = 20;
+    var childNodes = document.getElementById("row" + rowNumber).getElementsByTagName(`input`);
 
-        // checking to see if each letter is in the correct position or not
-        for (let i = 0; i < str.length; i++) {
-            // flipping the current child node
-            childNodes[i].style.animation = "flip 0.5s";
-            childNodes[i].style.animationDelay = delay + "ms";
+    // checking to see if each letter is in the correct position or not
+    for (let i = 0; i < str.length; i++) {
+        // flipping the current child node
+        childNodes[i].style.animation = "flip 0.5s";
+        childNodes[i].style.animationDelay = delay + "ms";
 
-            // change color after the delay, so the colour change matches with the flip animation
-            setTimeout(function () {
-                if (str[i] == answerWord[i]) {
-                    changeColourInput("green", (i), delay, rowNumber - 1);
-                    changeColourKeyboard("green", str[i]);
-                }
-                else if (answerWord.includes(str[i])) {
-                 
-                    // if the input has more letters than necessary, leave color
-                    if (Number(inputMap.get(str[i])) > Number(map.get(str[i]))) {
-                        if (i > Number(inputMap.get(str[i]))) {
+        // change color after the delay, so the colour change matches with the flip animation
+        setTimeout(function () {
+            if (str[i] == answerWord[i]) {
+                changeColourInput("green", (i), delay, rowNumber - 1);
+                changeColourKeyboard("green", str[i]);
+            }
+            else if (answerWord.includes(str[i])) {
+
+                // if the input has more letters than necessary, leave color
+                if (Number(inputMap.get(str[i])) > Number(map.get(str[i]))) {
+                    // check to see if the letter will be green in the next iteration
+                    let answerWordSplit = answerWord.substring(i + 1);
+                    let userWordSplit = str.substring(i + 1);
+
+                    if (answerWordSplit.indexOf(str[i]) == userWordSplit.indexOf(str[i])) {
+                        // leave as gray
+                        changeColourKeyboard("rgb(110, 110, 110)", str[i]);
+                    } else if (answerWordSplit.includes(str[i]) && userWordSplit.includes(str[i])) {
+                        // if the letter appears after the current index in both the answer and the user input, change to yellow
+
+                        // yellow
+                        changeColourInput("rgb(255, 218, 36)", i, delay, rowNumber - 1);
+                        changeColourKeyboard("rgb(255, 218, 36)", str[i]);
+                    } else {
+                        // keep as gray
+                        changeColourKeyboard("rgb(110, 110, 110)", str[i]);
+                    }
+                    /*
+                    if (i > Number(inputMap.get(str[i]))) {
+                        // keep as gray
+                        // changeColourKeyboard("rgb(110, 110, 110)", str[i]);
+                    } else {
+                        // change to yellow
+                        // if there is no other occurrance of the letter, change to yellow, else keep as gray
+                        if (str.indexOf(str[i]) < answerWord.indexOf(str[i]) && Number(map.get(str[i])) < Number(inputMap.get(str[i]))) {
                             // keep as gray
-                             changeColourKeyboard("rgb(110, 110, 110)", str[i]);
+                            changeColourKeyboard("rgb(110, 110, 110)", str[i]);
+
                         } else {
-                            // change to yellow
+
                             changeColourInput("rgb(255, 218, 36)", i, delay, rowNumber - 1);
                             changeColourKeyboard("rgb(255, 218, 36)", str[i]);
                         }
-
-                    } else {
-                        // get all the yellow values
-                        changeColourInput("rgb(255, 218, 36)", i, delay, rowNumber - 1);
-                        changeColourKeyboard("rgb(255, 218, 36)", str[i]);
                     }
+            */
                 } else {
-                    // the letter does not appear in the word
-                    changeColourKeyboard("rgb(110, 110, 110)", str[i]);
+                    // get all the yellow values
+                    changeColourInput("rgb(255, 218, 36)", i, delay, rowNumber - 1);
+                    changeColourKeyboard("rgb(255, 218, 36)", str[i]);
                 }
-                
-            }, delay);
-            delay += 350;
-        }
-        
-        rowNumber += 1;
-        if (str == answerWord) {
-            return true;
-        } else {
-            return false;
-        }         
+            } else {
+                // the letter does not appear in the word
+                changeColourKeyboard("rgb(110, 110, 110)", str[i]);
+            }
+
+        }, delay);
+        delay += 350;
+    }
+
+    rowNumber += 1;
+    if (str == answerWord) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
@@ -235,7 +261,7 @@ function changeColourKeyboard(colour, id) {
 function moveToPrevious() {
     if (fieldNumber > 0) {
         document.getElementById("row" + rowNumber).getElementsByTagName(`input`)[fieldNumber - 1].value = "";
-        document.getElementById("row" + rowNumber).getElementsByTagName(`input`)[fieldNumber-1].style.animation = "none";
+        document.getElementById("row" + rowNumber).getElementsByTagName(`input`)[fieldNumber - 1].style.animation = "none";
         // if the current field number is less than the max, focus the current field
         if (fieldNumber < maxFieldNumber) {
             document.getElementById("row" + rowNumber).getElementsByTagName(`input`)[fieldNumber].focus();
@@ -251,7 +277,7 @@ function moveToPrevious() {
 // getting input from the buttons
 function addInput(letter) {
     // if the current field number is less than the max, then display the letter
-    
+
     if (fieldNumber < maxFieldNumber) {
         // add input to the current field and move current field to the next
         document.getElementById("row" + rowNumber).getElementsByTagName(`input`)[fieldNumber].style.animation = "pulse 0.25s";
@@ -298,7 +324,7 @@ async function main() {
     // getting the word
     const value = await fetchWord();
     answerWord = value[0];
-    console.log(`the word is ${answerWord}`);
+    //console.log(`the word is ${answerWord}`);
 
 
     let down = false;
