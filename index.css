@@ -284,8 +284,7 @@ input[type="text"]:focus {
         margin-top: 1%;
         cursor: pointer;
         max-width: 100%;
-        font-size: 4vw;
-        display: block;
+        font-size: 100%;
         text-align: center;
     }
 
@@ -295,8 +294,6 @@ input[type="text"]:focus {
         font-size: 2vw;
         max-width: 100%;
         text-align: center;
-        display: block;
-
     }
 
     #keyboard_row3 #delete_button {
