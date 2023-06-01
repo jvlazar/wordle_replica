@@ -60,11 +60,13 @@ function waveFinal(rowNumber) {
         delay += 30;
         //console.log(`at the ${i} position`);
     }
+
+    document.getElementById("message").innerHTML = `SUCCESS! \nThe word is "${answerWord}"`;
 }
 
 // timer for error message
 function messageTimer(element, text) {
-    console.log(`error message`);
+    //console.log(`error message`);
     setTimeout(function () {
         document.getElementById(element + "_div").style.zIndex = 99;
         document.getElementById(element + "_div").style.opacity = 1;
@@ -108,10 +110,11 @@ async function getInput() {
 
                 if (checkInput(ustr)) {
 
-                    document.getElementById("message").innerHTML = `SUCCESS! The word is "${answerWord}"`;
+
                     setTimeout(function () {
                         waveFinal(rowNumber - 1);
-                    }, 2000)
+                    }, 2000);
+
                     return;
                 } else if (rowNumber <= maxRowNumber) {
                     fieldNumber = 0;
@@ -186,16 +189,17 @@ function checkInput(str) {
 
                     if (answerWordSplit.indexOf(str[i]) == userWordSplit.indexOf(str[i])) {
                         // leave as gray
-                        changeColourKeyboard("rgb(110, 110, 110)", str[i]);
+                        changeColourInput("rgb(54, 54, 54, 1)", i, delay, rowNumber - 1);
+                        changeColourKeyboard(" rgb(54, 54, 54, 1)", str[i]);
                     } else if (answerWordSplit.includes(str[i]) && userWordSplit.includes(str[i])) {
                         // if the letter appears after the current index in both the answer and the user input, change to yellow
 
                         // yellow
-                        changeColourInput("rgb(255, 218, 36)", i, delay, rowNumber - 1);
-                        changeColourKeyboard("rgb(255, 218, 36)", str[i]);
+                        changeColourInput("rgb(255, 218, 36, 1)", i, delay, rowNumber - 1);
+                        changeColourKeyboard("rgb(255, 218, 36, 1)", str[i]);
                     } else {
                         // keep as gray
-                        changeColourKeyboard("rgb(110, 110, 110)", str[i]);
+
                     }
                     /*
                     if (i > Number(inputMap.get(str[i]))) {
@@ -222,7 +226,8 @@ function checkInput(str) {
                 }
             } else {
                 // the letter does not appear in the word
-                changeColourKeyboard("rgb(110, 110, 110)", str[i]);
+                changeColourInput("rgb(54, 54, 54, 1)", i, delay, rowNumber - 1);
+                changeColourKeyboard("rgb(54, 54, 54, 1)", str[i]);
             }
 
         }, delay);
@@ -318,7 +323,13 @@ async function main() {
     }
 
     // getting the word
-    const value = await fetchWord();
+    let value = await fetchWord();
+    // checks to make sure only letters are in the word, no other characters (i.e. numbers or -)
+    while (!(/^[A-Za-z]*$/.test(value[0]))) {
+        value = await fetchWord();
+    }
+
+
     answerWord = value[0];
     console.log(`the word is ${answerWord}`);
 
