@@ -189,8 +189,10 @@ function checkInput(str) {
 
                     if (answerWordSplit.indexOf(str[i]) == userWordSplit.indexOf(str[i])) {
                         // leave as gray
-                        changeColourInput("rgb(54, 54, 54, 1)", i, delay, rowNumber - 1);
-                        changeColourKeyboard(" rgb(54, 54, 54, 1)", str[i]);
+                        if (document.getElementById(str[i]).style.backgroundColor != "green"){
+                            changeColourKeyboard(" rgb(54, 54, 54, 1)", str[i]);
+                        }
+                       changeColourInput("rgb(54, 54, 54, 1)", i, delay, rowNumber - 1);
                     } else if (answerWordSplit.includes(str[i]) && userWordSplit.includes(str[i])) {
                         // if the letter appears after the current index in both the answer and the user input, change to yellow
 
@@ -199,7 +201,7 @@ function checkInput(str) {
                         changeColourKeyboard("rgb(255, 218, 36, 1)", str[i]);
                     } else {
                         // keep as gray
-
+                        changeColourInput("rgb(54, 54, 54, 1)", i, delay, rowNumber - 1);
                     }
                     /*
                     if (i > Number(inputMap.get(str[i]))) {
@@ -331,6 +333,7 @@ async function main() {
 
 
     answerWord = value[0];
+    answerWord = "nappy";
     console.log(`the word is ${answerWord}`);
 
 
