@@ -333,7 +333,7 @@ async function main() {
 
 
     answerWord = value[0];
-    answerWord = "nappy";
+    
     console.log(`the word is ${answerWord}`);
 
 
