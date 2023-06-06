@@ -3,8 +3,12 @@ let rowNumber = 1;
 let maxRowNumber = 6;
 let maxFieldNumber = 5;
 let fieldNumber = 0;
+let finished = false;
+let pressed = false;
 
-
+function replay(){
+    location.reload();
+}
 
 // get random word
 async function fetchWord() {
@@ -61,7 +65,7 @@ function waveFinal(rowNumber) {
         //console.log(`at the ${i} position`);
     }
 
-    document.getElementById("message").innerHTML = `SUCCESS! \nThe word is "${answerWord}"`;
+    document.getElementById("message").innerHTML = `SUCCESS! The word is "${answerWord.toUpperCase()}"`;
 }
 
 // timer for error message
@@ -82,10 +86,21 @@ function messageTimer(element, text) {
     }, 2000);
 }
 
+function getInputFromKeyboard(){
+//console.log(`pressed button on screen`);
+    pressed = true;
+    getInput();
+   
+}
+
+
 
 // after clicking the enter button or clicking the enter key on keyboard
 async function getInput() {
-    console.log(`the row number is ${rowNumber}`);
+   
+    if (finished){
+        return;
+    }
     // getting all the elements from the current row
     let ustr = "";
 
@@ -105,14 +120,11 @@ async function getInput() {
         // check if valid
         let result = await checkValid(ustr);
         if (result != -1) {
-
-            if (result[0].word == ustr) {
-
                 if (checkInput(ustr)) {
-
-
                     setTimeout(function () {
                         waveFinal(rowNumber - 1);
+                        document.getElementById(`replay_button`).style.display = "block";
+                        finished = true;
                     }, 2000);
 
                     return;
@@ -120,11 +132,12 @@ async function getInput() {
                     fieldNumber = 0;
                     return;
                 } else {
-                    document.getElementById(`message`).innerHTML = `You've run out of guesses. The correct word is "${answerWord}"`;
+                    document.getElementById(`message`).innerHTML = `You've run out of guesses. The correct word is "${answerWord.toUpperCase()}"`;
                     fieldNumber = 0;
+                    finished = true;
                     return;
                 }
-            }
+            
         } else {
             messageTimer(`error_message`, 'Not a valid word');
             return;
@@ -135,7 +148,7 @@ async function getInput() {
 
 // compare user input to word
 function checkInput(str) {
-
+   
     // storing the letters and values of word in map
     var map = new Map();
     var inputMap = new Map();
@@ -280,13 +293,15 @@ function moveToPrevious() {
 // getting input from the buttons
 function addInput(letter) {
     // if the current field number is less than the max, then display the letter
-
+   
     if (fieldNumber < maxFieldNumber) {
         // add input to the current field and move current field to the next
         document.getElementById("row" + rowNumber).getElementsByTagName(`input`)[fieldNumber].style.animation = "pulse 0.25s";
         document.getElementById("row" + rowNumber).getElementsByTagName(`input`)[fieldNumber].value = letter;
         fieldNumber += 1;
     }
+
+    
 }
 
 // getting input from the keyboard, called by the listener when a key is pressed 
@@ -313,6 +328,7 @@ async function main() {
     window.onload = function () {
         var inputs;
         var index;
+        finished = false;
 
         inputs = document.getElementsByTagName('input');
         for (var i = 0; i < inputs.length; i++) {
@@ -335,8 +351,7 @@ async function main() {
     answerWord = value[0];
     
     console.log(`the word is ${answerWord}`);
-
-
+   
     let down = false;
     // add an event listener to the body of the page, waiting for a keydown event
     document.getElementById(`body`).addEventListener('keydown', function (event) {
@@ -346,10 +361,10 @@ async function main() {
         if (event.keyCode == 8) {
             moveToPrevious();
         } else if (event.keyCode == 13){
-            if (rowNumber != 1){
-                rowNumber -= 1;
+         
+            if (!pressed){
+                getInput();
             }
-            getInput();
         }
         else {
             addInputFromKeyboard(event);

@@ -89,6 +89,23 @@ input[type="text"]:focus {
     text-align: center;
 }
 
+#replay_button{
+    display: none;
+    text-align: center;
+    margin: auto;
+    margin-top: 1em;
+    margin-bottom: 3em;
+    border-radius: 1em;
+    width: 16em;
+    height: 3em;
+    background: rgb(125, 175, 125);
+    border-style: none;
+    opacity: 1;
+}
+
+#replay_button:hover{
+    background: rgb(213, 241, 213);
+}
 
 .keyboard {
     width: 100%;
@@ -233,6 +250,7 @@ input[type="text"]:focus {
         margin-top: 0;
         font-size: 1.6em;
         text-align: center;
+        display: block;
     }
 
     .error_message_div {
@@ -247,6 +265,13 @@ input[type="text"]:focus {
         justify-content: center;
         border-radius: 5%;
         overflow: hidden;
+    }
+
+    #replay_button{
+        min-width: 10em;
+        max-width: 20em;
+        height: 3em;
+        margin-bottom: 3em;
     }
 
     .keyboard {
@@ -276,7 +301,6 @@ input[type="text"]:focus {
         column-gap: 1%;
         grid-template-columns: repeat(9, minmax(5%, 9.5%));
         justify-content: center;
-
     }
 
 
@@ -286,6 +310,7 @@ input[type="text"]:focus {
         max-width: 100%;
         font-size: 100%;
         text-align: center;
+        display: block;
     }
 
 
@@ -332,8 +357,14 @@ input[type="text"]:focus {
         width: 43.6px;
         height: 58px;
         text-align: center;
+        display: block;
     }
-
+    #replay_button{
+        min-width: 10em;
+        max-width: 20em;
+        height: 3em;
+        margin-bottom: 3em;
+    }
 
     #submit_button {
         width: 65.4px;

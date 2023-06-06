@@ -63,8 +63,8 @@
             </div>
         </div>
 
-
         <p class="message" id="message" visibility="visible"> </p>
+        <button id="replay_button" onclick="replay()" visibility="visible">Replay</button>
         <div class="keyboard">
             <div class="keyboard_row" id="keyboard_row1">
                 <button onclick="addInput('Q')" id="q">Q</button>
@@ -90,7 +90,7 @@
                 <button onclick="addInput('L')" id="l">L</button>
             </div>
             <div class="keyboard_row" id="keyboard_row3">
-                <button onclick="getInput()" id="submit_button">ENTER</button>
+                <button onclick="getInputFromKeyboard()" id="submit_button">ENTER</button>
                 <button onclick="addInput('Z')" id="z">Z</button>
                 <button onclick="addInput('X')" id="x">X</button>
                 <button onclick="addInput('C')" id="c">C</button>
