@@ -87,7 +87,6 @@ function messageTimer(element, text) {
 }
 
 function getInputFromKeyboard(){
-//console.log(`pressed button on screen`);
     pressed = true;
     getInput();
    
@@ -95,7 +94,7 @@ function getInputFromKeyboard(){
 
 
 
-// after clicking the enter button or clicking the enter key on keyboard
+// after clicking the enter key on keyboard
 async function getInput() {
    
     if (finished){
