@@ -85,7 +85,7 @@ function messageTimer(element, text) {
 
 // after clicking the enter button or clicking the enter key on keyboard
 async function getInput() {
-
+    console.log(`the row number is ${rowNumber}`);
     // getting all the elements from the current row
     let ustr = "";
 
@@ -345,7 +345,13 @@ async function main() {
         down = true;
         if (event.keyCode == 8) {
             moveToPrevious();
-        } else {
+        } else if (event.keyCode == 13){
+            if (rowNumber != 1){
+                rowNumber -= 1;
+            }
+            getInput();
+        }
+        else {
             addInputFromKeyboard(event);
         }
     });
