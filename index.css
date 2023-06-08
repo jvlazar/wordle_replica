@@ -246,11 +246,11 @@ input[type="text"]:focus {
 
 
     .row input[type="text"] {
-        width: 100%;
+        width: 15%;
         margin-top: 0;
         font-size: 1.6em;
         text-align: center;
-        display: block;
+        display: inline-block;
     }
 
     .error_message_div {
