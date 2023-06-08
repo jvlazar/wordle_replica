@@ -276,7 +276,9 @@ input[type="text"]:focus {
 
     .keyboard {
         margin-top: -20px;
+
     }
+
 
 
     #keyboard_row1 {
@@ -310,7 +312,7 @@ input[type="text"]:focus {
         max-width: 100%;
         font-size: 100%;
         text-align: center;
-        display: block;
+        display: inline-block;
     }
 
 
@@ -349,7 +351,6 @@ input[type="text"]:focus {
         display: inline-block;
         margin-left: 1px;
         margin-right: 1px;
-        text-align: center;
     }
 
 
