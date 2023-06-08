@@ -113,7 +113,7 @@ input[type="text"]:focus {
 
 .keyboard_row {
     margin-top: 0.5%;
-    display: inline-block;
+    display: block;
     width: 100%;
     text-align: center;
     vertical-align: middle;
@@ -357,7 +357,7 @@ input[type="text"]:focus {
         width: 43.6px;
         height: 58px;
         text-align: center;
-        display: block;
+        display: inline-block;
     }
 
     #replay_button {
