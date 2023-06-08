@@ -89,7 +89,7 @@ input[type="text"]:focus {
     text-align: center;
 }
 
-#replay_button{
+#replay_button {
     display: none;
     text-align: center;
     margin: auto;
@@ -103,7 +103,7 @@ input[type="text"]:focus {
     opacity: 1;
 }
 
-#replay_button:hover{
+#replay_button:hover {
     background: rgb(213, 241, 213);
 }
 
@@ -267,7 +267,7 @@ input[type="text"]:focus {
         overflow: hidden;
     }
 
-    #replay_button{
+    #replay_button {
         min-width: 10em;
         max-width: 20em;
         height: 3em;
@@ -346,7 +346,7 @@ input[type="text"]:focus {
     .keyboard_row {
         margin-top: 1%;
         max-width: 100%;
-        display: block;
+        display: inline-block;
         margin-left: 1px;
         margin-right: 1px;
     }
@@ -359,7 +359,8 @@ input[type="text"]:focus {
         text-align: center;
         display: block;
     }
-    #replay_button{
+
+    #replay_button {
         min-width: 10em;
         max-width: 20em;
         height: 3em;
