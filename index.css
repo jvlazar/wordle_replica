@@ -230,7 +230,7 @@ input[type="text"]:focus {
 
 }
 
-@media (max-width: 500px) {
+@media (width <= 500px) {
     .container {
         max-width: 80%;
         margin: auto;
@@ -276,7 +276,6 @@ input[type="text"]:focus {
 
     .keyboard {
         margin-top: -20px;
-
     }
 
 
@@ -286,6 +285,7 @@ input[type="text"]:focus {
         justify-content: center;
         column-gap: 1%;
         grid-template-columns: repeat(10, minmax(5%, 8.5%));
+    
     }
 
     #keyboard_row2 {
