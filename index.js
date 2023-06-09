@@ -5,8 +5,9 @@ let maxFieldNumber = 5;
 let fieldNumber = 0;
 let finished = false;
 let pressed = false;
+let inProgress = false;
 
-function replay(){
+function replay() {
     location.reload();
 }
 
@@ -86,18 +87,18 @@ function messageTimer(element, text) {
     }, 2000);
 }
 
-function getInputFromKeyboard(){
+function getInputFromKeyboard() {
     pressed = true;
     getInput();
-   
+
 }
 
 
 
 // after clicking the enter key on keyboard
 async function getInput() {
-   
-    if (finished){
+    inProgress = true;
+    if (finished) {
         return;
     }
     // getting all the elements from the current row
@@ -119,26 +120,28 @@ async function getInput() {
         // check if valid
         let result = await checkValid(ustr);
         if (result != -1) {
-                if (checkInput(ustr)) {
-                    setTimeout(function () {
-                        waveFinal(rowNumber - 1);
-                        document.getElementById(`replay_button`).style.display = "block";
-                        finished = true;
-                    }, 2000);
-
-                    return;
-                } else if (rowNumber <= maxRowNumber) {
-                    fieldNumber = 0;
-                    return;
-                } else {
-                    document.getElementById(`message`).innerHTML = `You've run out of guesses. The correct word is "${answerWord.toUpperCase()}"`;
-                    fieldNumber = 0;
+            if (checkInput(ustr)) {
+                setTimeout(function () {
+                    waveFinal(rowNumber - 1);
+                    document.getElementById(`replay_button`).style.display = "block";
                     finished = true;
-                    return;
-                }
-            
+                }, 2000);
+                inProgress = false;
+                return;
+            } else if (rowNumber <= maxRowNumber) {
+                fieldNumber = 0;
+                inProgress = false;
+                return;
+            } else {
+                document.getElementById(`message`).innerHTML = `You've run out of guesses. The correct word is "${answerWord.toUpperCase()}"`;
+                fieldNumber = 0;
+                finished = true;
+                return;
+            }
+
         } else {
             messageTimer(`error_message`, 'Not a valid word');
+            inProgress = false;
             return;
         }
     }
@@ -147,7 +150,7 @@ async function getInput() {
 
 // compare user input to word
 function checkInput(str) {
-   
+
     // storing the letters and values of word in map
     var map = new Map();
     var inputMap = new Map();
@@ -201,10 +204,10 @@ function checkInput(str) {
 
                     if (answerWordSplit.indexOf(str[i]) == userWordSplit.indexOf(str[i])) {
                         // leave as gray
-                        if (document.getElementById(str[i]).style.backgroundColor != "green"){
+                        if (document.getElementById(str[i]).style.backgroundColor != "green") {
                             changeColourKeyboard(" rgb(54, 54, 54, 1)", str[i]);
                         }
-                       changeColourInput("rgb(54, 54, 54, 1)", i, delay, rowNumber - 1);
+                        changeColourInput("rgb(54, 54, 54, 1)", i, delay, rowNumber - 1);
                     } else if (answerWordSplit.includes(str[i]) && userWordSplit.includes(str[i])) {
                         // if the letter appears after the current index in both the answer and the user input, change to yellow
 
@@ -292,7 +295,7 @@ function moveToPrevious() {
 // getting input from the buttons
 function addInput(letter) {
     // if the current field number is less than the max, then display the letter
-   
+
     if (fieldNumber < maxFieldNumber) {
         // add input to the current field and move current field to the next
         document.getElementById("row" + rowNumber).getElementsByTagName(`input`)[fieldNumber].style.animation = "pulse 0.25s";
@@ -300,7 +303,7 @@ function addInput(letter) {
         fieldNumber += 1;
     }
 
-    
+
 }
 
 // getting input from the keyboard, called by the listener when a key is pressed 
@@ -348,31 +351,33 @@ async function main() {
 
 
     answerWord = value[0];
-    
+
     console.log(`the word is ${answerWord}`);
-   
-    let down = false;
-    // add an event listener to the body of the page, waiting for a keydown event
-    document.getElementById(`body`).addEventListener('keydown', function (event) {
-        // turn repeat off (can't press down anymore)
-        if (down) return;
-        down = true;
-        if (event.keyCode == 8) {
-            moveToPrevious();
-        } else if (event.keyCode == 13){
-         
-            if (!pressed){
-                getInput();
+
+    if (!inProgress) {
+        let down = false;
+        // add an event listener to the body of the page, waiting for a keydown event
+        document.getElementById(`body`).addEventListener('keydown', function (event) {
+            // turn repeat off (can't press down anymore)
+            if (down) return;
+            down = true;
+            if (event.keyCode == 8) {
+                moveToPrevious();
+            } else if (event.keyCode == 13) {
+                if (!pressed) {
+                    getInput();
+                }
             }
-        }
-        else {
-            addInputFromKeyboard(event);
-        }
-    });
-    // add event listener for keyup event, where we reset the "down" variable so user can press a key again
-    document.addEventListener('keyup', function () {
-        down = false;
-    }, false);
+            else {
+                addInputFromKeyboard(event);
+            }
+        });
+        // add event listener for keyup event, where we reset the "down" variable so user can press a key again
+        document.addEventListener('keyup', function () {
+            down = false;
+        }, false);
+    }
+
 
 
 }
