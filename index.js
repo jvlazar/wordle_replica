@@ -326,6 +326,11 @@ function addInputFromKeyboard(e) {
 
 
 async function main() {
+    window.addEventListener("DOMContentLoaded", (event) => {
+
+        windowalert("DOM fully loaded and parsed");
+    })
+
     // clears the fields on refresh
     window.onload = function () {
         var inputs;
