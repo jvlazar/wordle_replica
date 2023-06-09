@@ -97,6 +97,7 @@ function getInputFromKeyboard() {
 
 // after clicking the enter key on keyboard
 async function getInput() {
+    removeEventListener
     inProgress = true;
     if (finished) {
         return;
@@ -246,6 +247,9 @@ function checkInput(str) {
                 changeColourInput("rgb(54, 54, 54, 1)", i, delay, rowNumber - 1);
                 changeColourKeyboard("rgb(54, 54, 54, 1)", str[i]);
             }
+            if (i == 4) {
+                inProgress = false;
+            }
 
         }, delay);
         delay += 350;
@@ -326,10 +330,7 @@ function addInputFromKeyboard(e) {
 
 
 async function main() {
-    window.addEventListener("DOMContentLoaded", (event) => {
 
-        windowalert("DOM fully loaded and parsed");
-    })
 
     // clears the fields on refresh
     window.onload = function () {
@@ -360,6 +361,7 @@ async function main() {
     console.log(`the word is ${answerWord}`);
 
     if (!inProgress) {
+
         let down = false;
         // add an event listener to the body of the page, waiting for a keydown event
         document.getElementById(`body`).addEventListener('keydown', function (event) {
@@ -369,8 +371,9 @@ async function main() {
             if (event.keyCode == 8) {
                 moveToPrevious();
             } else if (event.keyCode == 13) {
-                if (!pressed) {
+                if ((!pressed || rowNumber > 1) && !inProgress) {
                     getInput();
+                    pressed = false;
                 }
             }
             else {
