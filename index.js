@@ -46,6 +46,23 @@ async function checkValid(str) {
 
 }
 
+function debounce(fn, delay) {
+    let timer = null
+
+    return (...args) => {
+        if (timer) {
+            console.log(`in progress`);
+            clearTimeout(timer)
+            timer = setTimeout(() => fn(...args), delay)
+        }
+        else {
+            console.log(`in progress`);
+        }
+    }
+}
+
+
+
 // activates the shake property for the specific row, called when error message appears
 function shakeRow(rowNumber) {
     document.getElementById("row" + rowNumber).style.animation = "shake 0.5s";
@@ -97,7 +114,6 @@ function getInputFromKeyboard() {
 
 // after clicking the enter key on keyboard
 async function getInput() {
-    removeEventListener
     inProgress = true;
     if (finished) {
         return;
@@ -114,12 +130,11 @@ async function getInput() {
     ustr = ustr.toLowerCase();
     // the user hasn't filled all squares out
     if (ustr.length != 5) {
-
         messageTimer(`error_message`, 'Not enough letters');
         return;
     } else {
         // check if valid
-        let result = await checkValid(ustr);
+        let result = debounce(checkValid(ustr), 1000);
         if (result != -1) {
             if (checkInput(ustr)) {
                 setTimeout(function () {
@@ -331,7 +346,6 @@ function addInputFromKeyboard(e) {
 
 async function main() {
 
-
     // clears the fields on refresh
     window.onload = function () {
         var inputs;
@@ -371,10 +385,7 @@ async function main() {
             if (event.keyCode == 8) {
                 moveToPrevious();
             } else if (event.keyCode == 13) {
-                if ((!pressed || rowNumber > 1) && !inProgress) {
-                    getInput();
-                    pressed = false;
-                }
+                getInput();
             }
             else {
                 addInputFromKeyboard(event);
