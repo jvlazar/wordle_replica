@@ -4,7 +4,7 @@ let maxRowNumber = 6;
 let maxFieldNumber = 5;
 let fieldNumber = 0;
 let finished = false;
-let pressed = false;
+
 let inProgress = false;
 
 function replay() {
@@ -105,7 +105,6 @@ function messageTimer(element, text) {
 }
 
 function getInputFromKeyboard() {
-    pressed = true;
     getInput();
 
 }
@@ -234,24 +233,6 @@ function checkInput(str) {
                         // keep as gray
                         changeColourInput("rgb(54, 54, 54, 1)", i, delay, rowNumber - 1);
                     }
-                    /*
-                    if (i > Number(inputMap.get(str[i]))) {
-                        // keep as gray
-                        // changeColourKeyboard("rgb(110, 110, 110)", str[i]);
-                    } else {
-                        // change to yellow
-                        // if there is no other occurrance of the letter, change to yellow, else keep as gray
-                        if (str.indexOf(str[i]) < answerWord.indexOf(str[i]) && Number(map.get(str[i])) < Number(inputMap.get(str[i]))) {
-                            // keep as gray
-                            changeColourKeyboard("rgb(110, 110, 110)", str[i]);
-
-                        } else {
-
-                            changeColourInput("rgb(255, 218, 36)", i, delay, rowNumber - 1);
-                            changeColourKeyboard("rgb(255, 218, 36)", str[i]);
-                        }
-                    }
-            */
                 } else {
                     // get all the yellow values
                     changeColourInput("rgb(255, 218, 36)", i, delay, rowNumber - 1);
