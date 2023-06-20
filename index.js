@@ -7,6 +7,7 @@ let finished = false;
 let pressed = false;
 let inProgress = false;
 
+
 function replay() {
     location.reload();
 }
@@ -47,18 +48,6 @@ async function checkValid(str) {
     }
 
 }
-function debounce_leading(func, timeout = 300){
-    let timer;
-    return (...args) => {
-      if (!timer) {
-        return func.apply(this, args);
-      }
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        timer = undefined;
-      }, timeout);
-    };
-  }
   
 
 
@@ -104,7 +93,6 @@ function messageTimer(element, text) {
 }
 
 function getInputFromKeyboard() {
-    pressed = true;
     getInput();
 }
 
@@ -112,7 +100,6 @@ function getInputFromKeyboard() {
 
 // after clicking the enter key on keyboard
 async function getInput() {
-    console.log(`in the getInput function`);
     inProgress = true;
     if (finished) {
         return;
@@ -130,14 +117,12 @@ async function getInput() {
     // the user hasn't filled all squares out
     if (ustr.length != 5) {
         messageTimer(`error_message`, 'Not enough letters');
+        locked = true;
         return;
     } else {
 
         // check if valid
-     
         let result = await checkValid(ustr);
-        
-        console.log(`the value of the result is ${result}`);
         if (result != -1 ) {
             if (checkInput(ustr)) {
                 setTimeout(function () {
@@ -173,7 +158,6 @@ async function getInput() {
 
 // compare user input to word
 function checkInput(str) {
-    console.log(`in the checkinput function`);
     // storing the letters and values of word in map
     var map = new Map();
     var inputMap = new Map();
@@ -363,37 +347,47 @@ async function main() {
 
     answerWord = value[0];
 
-    console.log(`the word is ${answerWord}`);
+    //console.log(`the word is ${answerWord}`);
 
-    if (!inProgress) {
+    let down = false;
+    let locked = false;
 
-        let down = false;
-        let locked = false;
-        // add an event listener to the body of the page, waiting for a keydown event
-        document.getElementById(`body`).addEventListener('keydown', function (event) {
-            // turn repeat off (can't press down anymore)
-            if (down || locked) return;
-            
-            down = true;
-            if (event.keyCode == 8) {
-                moveToPrevious();
-            } else if (event.keyCode == 13) {
-                document.getElementById(`body`).disabled = true;
+
+    // listens for the click of the submit button
+    document.getElementById('submit_button').addEventListener('click', function(){
+        getInput();
+        pressed = true;
+    }, false) 
+
+    
+
+    // add an event listener to the body of the page, waiting for a keydown event
+    document.getElementById(`body`).addEventListener('keydown', function (event) {
+        // turn repeat off (can't press down anymore)
+        if (down || locked) return;
+        
+        down = true;
+        if (event.keyCode == 8) {
+            moveToPrevious();
+        } else if (event.keyCode == 13) {
+            if (!pressed){
                 getInput();
-                locked = true;
-               
+                setTimeout(function(){pressed = false}, 3000);
             }
-            else {
-                addInputFromKeyboard(event);
-            }
-            setTimeout(function() {locked = false}, 3000);
-        });
-        // add event listener for keyup event, where we reset the "down" variable so user can press a key again
-        document.addEventListener('keyup', function () {
-            down = false;
-        }, false);
+            locked = true;
+            setTimeout(function() {locked = false}, 2000);
+        }
+        else {
+            addInputFromKeyboard(event);
+        }
+       
+    });
+    // add event listener for keyup event, where we reset the "down" variable so user can press a key again
+    document.addEventListener('keyup', function () {
+        down = false;
+    }, false);
 
-    }
+    
 
 
 
