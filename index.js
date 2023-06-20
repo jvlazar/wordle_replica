@@ -4,7 +4,7 @@ let maxRowNumber = 6;
 let maxFieldNumber = 5;
 let fieldNumber = 0;
 let finished = false;
-
+let pressed = false;
 let inProgress = false;
 
 function replay() {
@@ -35,9 +35,11 @@ async function checkValid(str) {
         if (response.status == 200) {
             const value = await response.json();
             //console.log(`the value is ${value[0].word}`)
-            return value;
+           return value;
+          
         } else {
             return -1;
+            
         }
 
     } catch (error) {
@@ -45,22 +47,19 @@ async function checkValid(str) {
     }
 
 }
-
-function debounce(fn, delay) {
-    let timer = null
-
+function debounce_leading(func, timeout = 300){
+    let timer;
     return (...args) => {
-        if (timer) {
-            console.log(`in progress`);
-            clearTimeout(timer)
-            timer = setTimeout(() => fn(...args), delay)
-        }
-        else {
-            console.log(`in progress`);
-        }
-    }
-}
-
+      if (!timer) {
+        return func.apply(this, args);
+      }
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        timer = undefined;
+      }, timeout);
+    };
+  }
+  
 
 
 // activates the shake property for the specific row, called when error message appears
@@ -105,14 +104,15 @@ function messageTimer(element, text) {
 }
 
 function getInputFromKeyboard() {
+    pressed = true;
     getInput();
-
 }
 
 
 
 // after clicking the enter key on keyboard
 async function getInput() {
+    console.log(`in the getInput function`);
     inProgress = true;
     if (finished) {
         return;
@@ -132,9 +132,13 @@ async function getInput() {
         messageTimer(`error_message`, 'Not enough letters');
         return;
     } else {
+
         // check if valid
-        let result = debounce(checkValid(ustr), 1000);
-        if (result != -1) {
+     
+        let result = await checkValid(ustr);
+        
+        console.log(`the value of the result is ${result}`);
+        if (result != -1 ) {
             if (checkInput(ustr)) {
                 setTimeout(function () {
                     waveFinal(rowNumber - 1);
@@ -146,11 +150,15 @@ async function getInput() {
             } else if (rowNumber <= maxRowNumber) {
                 fieldNumber = 0;
                 inProgress = false;
+                document.getElementById("submit_button").disabled = false;
                 return;
             } else {
                 document.getElementById(`message`).innerHTML = `You've run out of guesses. The correct word is "${answerWord.toUpperCase()}"`;
                 fieldNumber = 0;
                 finished = true;
+                document.getElementById("submit_button").disabled = false;
+                document.getElementById(`replay_button`).style.display = "block";
+               
                 return;
             }
 
@@ -165,7 +173,7 @@ async function getInput() {
 
 // compare user input to word
 function checkInput(str) {
-
+    console.log(`in the checkinput function`);
     // storing the letters and values of word in map
     var map = new Map();
     var inputMap = new Map();
@@ -233,6 +241,7 @@ function checkInput(str) {
                         // keep as gray
                         changeColourInput("rgb(54, 54, 54, 1)", i, delay, rowNumber - 1);
                     }
+
                 } else {
                     // get all the yellow values
                     changeColourInput("rgb(255, 218, 36)", i, delay, rowNumber - 1);
@@ -250,7 +259,8 @@ function checkInput(str) {
         }, delay);
         delay += 350;
     }
-
+    
+    
     rowNumber += 1;
     if (str == answerWord) {
         return true;
@@ -358,24 +368,31 @@ async function main() {
     if (!inProgress) {
 
         let down = false;
+        let locked = false;
         // add an event listener to the body of the page, waiting for a keydown event
         document.getElementById(`body`).addEventListener('keydown', function (event) {
             // turn repeat off (can't press down anymore)
-            if (down) return;
+            if (down || locked) return;
+            
             down = true;
             if (event.keyCode == 8) {
                 moveToPrevious();
             } else if (event.keyCode == 13) {
+                document.getElementById(`body`).disabled = true;
                 getInput();
+                locked = true;
+               
             }
             else {
                 addInputFromKeyboard(event);
             }
+            setTimeout(function() {locked = false}, 3000);
         });
         // add event listener for keyup event, where we reset the "down" variable so user can press a key again
         document.addEventListener('keyup', function () {
             down = false;
         }, false);
+
     }
 
 
