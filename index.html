@@ -12,11 +12,11 @@
 
 <body id="body">
 
-    <h1> WORDLE Replica</h1>
+    <h1 class="title"> WORDLE Replica</h1>
+    <h3 class="screen_error">Not available in landscape mode</h3>
+    <div class="content" id="content">
 
-    <div class="content">
-
-        <div class="container">
+        <div class="input_container">
             <div class="error_message_div" id="error_message_div">
                 <p class="error_message" id="error_message" visibility="visible"> </p>
             </div>
@@ -63,9 +63,12 @@
                 <input type="text" id="field5" maxlength="1" disabled>
             </div>
         </div>
-
-        <p class="message" id="message" visibility="visible"> </p>
-        <button id="replay_button" onclick="replay()" visibility="visible">Replay</button>
+        
+        <div class="replay_container">
+            <p class="message" id="message" visibility="visible"> </p>
+            <button id="replay_button" onclick="replay()" visibility="visible">Replay</button>
+        </div>
+       
         <div class="keyboard">
             <div class="keyboard_row" id="keyboard_row1">
                 <button onclick="addInput('Q')" id="q">Q</button>
@@ -103,9 +106,8 @@
             </div>
         </div>
     </div>
-
-    <div style="height: 70px;"></div>
-
+   
+   
 
 </body>
 <script type="text/javascript" src="index.js"></script>

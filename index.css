@@ -1,160 +1,135 @@
-body {
-    background-color: rgb(27, 27, 27);
+:root{
+    /* Colours */
+    --body-background: rgb(27, 27, 27);
+    --border: rgba(54, 54, 54, 1);
 }
 
-h1 {
+body{
+    background-color: var(--body-background);
+    
+}
+
+.title{
+    color: white;
     display: flex;
-    align-items: center;
+    margin: auto;
+    margin-bottom: 2vw;
     justify-content: center;
+    font-size: 5vw;
+}
+
+.screen_error{
+    display: none;
     color: white;
 }
 
-.container {}
-
-.content {
-    position: relative;
-    max-width: 100%;
+.content{
+    width: 90%;
     margin: auto;
-    padding: auto;
+   
 }
 
 .error_message_div {
-    display: block;
     opacity: 0;
-    position: absolute;
     background-color: white;
-    width: 15%;
-    left: 42.5%;
-    height: 10%;
+    width: 50vw;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 99;
     justify-content: center;
-    border-radius: 5%;
+    text-align: center;
+    border-radius: 1em;
     overflow: hidden;
 }
 
-.error_message_div p {
-    color: black;
-    font-size: 1em;
-    text-align: center;
-    font-weight: bold;
-    padding: auto;
+.replay_container{
+    margin: 10vw;
 }
-
-.row {
-    position: relative;
-    animation: none;
-    animation-iteration-count: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-}
-
-
-
-input[type="text"] {
-    /*
-    background-color: rgb(73, 73, 73);
-    border-color: rgb(73, 73, 73);
-    */
-    border-color: rgb(54, 54, 54);
-    background-color: rgb(27, 27, 27);
-    color: white;
-    width: 50px;
-    height: 50px;
-    border-radius: 5%;
-    border-style: solid;
-    display: flex;
-    margin-right: 3px;
-    margin-top: 5px;
-    font-size: 30px;
-    text-align: center;
-    animation-name: none;
-    animation-duration: 0.5s;
-    animation-iteration-count: 2;
-}
-
-input[type="text"]:enabled {
-    border-color: rgb(73, 73, 73);
-}
-
-input[type="text"]:focus {
-    outline: none;
-    caret-color: transparent
-}
-
 
 .message {
     color: white;
-    font-size: 40px;
-    display: block;
+    font-size: 8vw;
     text-align: center;
+    margin-bottom: 0vw;
 }
 
 #replay_button {
     display: none;
     text-align: center;
-    margin: auto;
-    margin-top: 1em;
-    margin-bottom: 3em;
+    margin: 1vw auto;
+    width: 50vw;
+    height: 15vw;
+    font-size: 4vw;
     border-radius: 1em;
-    width: 16em;
-    height: 3em;
-    background: rgb(125, 175, 125);
+    background: rgb(106, 246, 127);
     border-style: none;
     opacity: 1;
 }
 
-#replay_button:hover {
-    background: rgb(213, 241, 213);
+
+.row{
+    display: flex;
+    justify-content: center;
 }
 
-.keyboard {
-    width: 100%;
-}
-
-.keyboard_row {
-    margin-top: 0.5%;
-    display: inline-block;
-    width: 100%;
+input{
+    width: 13vw;
+    height: 14vw;
+    font-size: 4vw;
     text-align: center;
-    vertical-align: middle;
-}
-
-#keyboard_row1 button {
-    width: 43px;
-}
-
-
-.keyboard_row button {
-    cursor: pointer;
-    width: 43.6px;
-    height: 58px;
-    margin: auto;
-    text-align: center;
-    border-radius: 10%;
-    background-color: rgb(156, 156, 156);
-    border: none;
+    margin: 0.5%;
+    background-color: transparent;
+    border-style: solid;
+    border-color: var(--border);
+    border-radius: 0.2em;
+    background-color: transparent;
+    animation-name: none;
+    animation-duration: 0.5s;
+    animation-iteration-count: 2;
     color: white;
-    font-weight: bold;
-    font-size: 20px;
-    vertical-align: middle;
-    touch-action: manipulation;
 }
 
-#submit_button {
-    font-size: 15px;
-    width: 65.4px;
+.keyboard{
+    width: 100%;
+    margin-top: -4vw;
 }
 
-#delete_button {
+.keyboard_row{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+}
+
+.keyboard_row button{
+    margin: 1% 0.5%;
+    width: 12vw;
+    height: 15vw;
+    font-size: 3vw;
+    border-radius: 0.5em;
+    border-style: none;
+    background-color: rgb(162, 162, 162);
+    color: white;
+    font-weight: 600px;
+}
+
+#keyboard_row2{
+    margin: auto 1em;
+}
+
+#submit_button{
+    width: 14vw;
+    font-size: 1.75vw;
+}
+
+#delete_button{
+    width: 14vw;
     background-image: url("backspace.png");
     background-repeat: no-repeat;
-    background-size: 40px, 50px;
+    background-size: 4vw, 4vw;
     background-position: center;
-    width: 65.4px;
 }
-
 
 @keyframes shake {
     0% {
@@ -233,170 +208,110 @@ input[type="text"]:focus {
 }
 
 
-@media (500px< width < 1200px) {
+@media (width >= 700px) {
 
+    .title{
+        font-size: 32px;
+    }
 
-    .content {
-        width: 100%;
+    .content{
+        position: relative;
+        width: 80%;
         margin: auto;
     }
 
-    .content input[type="text"] {
-        display: flex;
+    input{
+        width: 50px;
+        height: 50px;
+        margin: 0.1vw 0.15vw;
+        font-size: 1.5vw;
     }
 
-    .error_message_div {
-        opacity: 0;
-        position: absolute;
-        background-color: white;
-        max-width: 35%;
-        min-width: 20%;
-        left: 40%;
-        height: 10%;
-        z-index: 99;
-        display: flex;
-        justify-content: center;
-        border-radius: 5%;
-        overflow: hidden;
-    }
-
-    .keyboard_row {
-        margin-top: 1%;
-        max-width: 100%;
-        display: inline-block;
-        margin-left: 1px;
-        margin-right: 1px;
-    }
-
-
-    .keyboard_row button {
-        cursor: pointer;
-        width: 43.6px;
-        height: 58px;
-        text-align: center;
-        display: inline-block;
-    }
-
-    #replay_button {
-        min-width: 10em;
-        max-width: 20em;
-        height: 3em;
-        margin-bottom: 3em;
-    }
-
-    #submit_button {
-        width: 65.4px;
-    }
-
-    #delete_button {
-        background-image: url("backspace.png");
-        background-repeat: no-repeat;
-        background-size: 40px, 50px;
-        background-position: center;
-        width: 65.4px;
-    }
-
-
-}
-
-@media (width <=500px) {
-    .container {
-        max-width: 80%;
+    .keyboard{
         margin: auto;
+        
+        width: 60%;
     }
 
-    .row {
-        margin-top: 2%;
-        display: flex;
-        max-width: 100%;
-        justify-content: center;
+    .keyboard_row button{
+        margin: 3px 2px;
+        width: 50px;
+        height: 60px;
+        font-size: 1em;
+        border-radius: 0.3em;
+        font-weight: 600px;
+        cursor: pointer;
     }
 
-
-
-    .row input[type="text"] {
-        width: 15%;
-        margin-top: 0;
-        font-size: 1.6em;
-        text-align: center;
-        display: inline-block;
+    #keyboard_row2{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    
+    #submit_button{
+        width: 70px;
+        font-size: 0.75em;
+    }
+    
+    #delete_button{
+        width: 70px;
+        background-image: url("backspace.png");
+        background-repeat: no-repeat;
+        background-size: 2vw, 2vw;
+        background-position: center;
     }
 
     .error_message_div {
-        opacity: 0;
         position: absolute;
-        background-color: white;
-        width: 50%;
-        left: 25%;
-        height: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
         z-index: 99;
-        display: flex;
-        justify-content: center;
-        border-radius: 5%;
+        border-radius: 1em;
         overflow: hidden;
     }
 
+    .replay_container{
+        margin: 1vw;
+    }
+
+    .message {
+        color: white;
+        font-size: 3vw;
+        display: block;
+        text-align: center;
+       
+    }
+
     #replay_button {
-        min-width: 10em;
-        max-width: 20em;
-        height: 3em;
-        margin-bottom: 3em;
-    }
-
-    .keyboard {
-        margin-top: -20px;
-    }
-
-
-
-    #keyboard_row1 {
-        display: grid;
-        justify-content: center;
-        column-gap: 1%;
-        grid-template-columns: repeat(10, minmax(5%, 8.5%));
-
-    }
-
-    #keyboard_row2 {
-        margin-top: 1%;
-        display: grid;
-        column-gap: 1%;
-        grid-template-columns: repeat(9, minmax(6%, 8.5%));
-        grid-template-rows: 100%;
-        justify-content: center;
-    }
-
-
-    #keyboard_row3 {
-        display: grid;
-        column-gap: 1%;
-        grid-template-columns: repeat(9, minmax(5%, 9.5%));
-        justify-content: center;
-    }
-
-
-    .keyboard_row button {
-        margin-top: 1%;
+        display: none;
+        text-align: center;
+        width: 120px;
+        height: 60px;
+        font-size: 1em;
+        border-radius: 1em;
+        background: rgb(106, 246, 127);
+        border-style: none;
+        opacity: 1;
         cursor: pointer;
-        max-width: 100%;
-        font-size: 100%;
-        text-align: center;
-        display: inline-block;
     }
 
-
-
-    #keyboard_row3 #submit_button {
-        font-size: 2vw;
-        max-width: 100%;
-        text-align: center;
+    #replay_button:hover{
+        background: rgb(147, 231, 160);
     }
 
-    #keyboard_row3 #delete_button {
-        background-image: url("backspace.png");
-        background-repeat: no-repeat;
-        background-size: 5vw, 5vh;
-        background-position: center;
-        max-width: 100%;
-    }
 }
+
+
+/* @media (orientation:landscape ) {
+    .screen_error{
+        display: block;
+        color: white;
+        justify-self: center;
+        align-self: center;
+    }
+
+    .content{
+        display: none;
+    }
+} */

@@ -6,6 +6,9 @@ let fieldNumber = 0;
 let finished = false;
 let pressed = false;
 let inProgress = false;
+const green = 'rgba(23, 194, 31, 0.885)';
+const yellow = 'rgb(255, 162, 0)';
+const gray = 'rgba(87, 87, 87, 0.207)';
 
 
 function replay() {
@@ -48,16 +51,12 @@ async function checkValid(str) {
     }
 
 }
-  
-
 
 // activates the shake property for the specific row, called when error message appears
 function shakeRow(rowNumber) {
     document.getElementById("row" + rowNumber).style.animation = "shake 0.5s";
     document.getElementById("row" + rowNumber).style.animationIterationCount = 2;
 }
-
-
 
 // final animation for getting answer correct
 function waveFinal(rowNumber) {
@@ -92,12 +91,6 @@ function messageTimer(element, text) {
     }, 2000);
 }
 
-function getInputFromKeyboard() {
-    getInput();
-}
-
-
-
 // after clicking the enter key on keyboard
 async function getInput() {
     inProgress = true;
@@ -129,8 +122,10 @@ async function getInput() {
                     waveFinal(rowNumber - 1);
                     document.getElementById(`replay_button`).style.display = "block";
                     finished = true;
+                    
                 }, 2000);
                 inProgress = false;
+               ;
                 return;
             } else if (rowNumber <= maxRowNumber) {
                 fieldNumber = 0;
@@ -143,7 +138,6 @@ async function getInput() {
                 finished = true;
                 document.getElementById("submit_button").disabled = false;
                 document.getElementById(`replay_button`).style.display = "block";
-               
                 return;
             }
 
@@ -198,8 +192,8 @@ function checkInput(str) {
         // change color after the delay, so the colour change matches with the flip animation
         setTimeout(function () {
             if (str[i] == answerWord[i]) {
-                changeColourInput("green", (i), delay, rowNumber - 1);
-                changeColourKeyboard("green", str[i]);
+                changeColourInput(green, (i), delay, rowNumber - 1);
+                changeColourKeyboard(green, str[i]);
             }
             else if (answerWord.includes(str[i])) {
 
@@ -212,29 +206,29 @@ function checkInput(str) {
                     if (answerWordSplit.indexOf(str[i]) == userWordSplit.indexOf(str[i])) {
                         // leave as gray
                         if (document.getElementById(str[i]).style.backgroundColor != "green") {
-                            changeColourKeyboard(" rgb(54, 54, 54, 1)", str[i]);
+                            changeColourKeyboard(gray, str[i]);
                         }
-                        changeColourInput("rgb(54, 54, 54, 1)", i, delay, rowNumber - 1);
+                        changeColourInput(gray, i, delay, rowNumber - 1);
                     } else if (answerWordSplit.includes(str[i]) && userWordSplit.includes(str[i])) {
                         // if the letter appears after the current index in both the answer and the user input, change to yellow
 
                         // yellow
-                        changeColourInput("rgb(255, 218, 36, 1)", i, delay, rowNumber - 1);
-                        changeColourKeyboard("rgb(255, 218, 36, 1)", str[i]);
+                        changeColourInput(yellow, i, delay, rowNumber - 1);
+                        changeColourKeyboard(yellow, str[i]);
                     } else {
                         // keep as gray
-                        changeColourInput("rgb(54, 54, 54, 1)", i, delay, rowNumber - 1);
+                        changeColourInput(gray, i, delay, rowNumber - 1);
                     }
 
                 } else {
                     // get all the yellow values
-                    changeColourInput("rgb(255, 218, 36)", i, delay, rowNumber - 1);
-                    changeColourKeyboard("rgb(255, 218, 36)", str[i]);
+                    changeColourInput(yellow, i, delay, rowNumber - 1);
+                    changeColourKeyboard(yellow, str[i]);
                 }
             } else {
                 // the letter does not appear in the word
-                changeColourInput("rgb(54, 54, 54, 1)", i, delay, rowNumber - 1);
-                changeColourKeyboard("rgb(54, 54, 54, 1)", str[i]);
+                changeColourInput(gray, i, delay, rowNumber - 1);
+                changeColourKeyboard(gray, str[i]);
             }
             if (i == 4) {
                 inProgress = false;
@@ -360,7 +354,6 @@ async function main() {
     }, false) 
 
     
-
     // add an event listener to the body of the page, waiting for a keydown event
     document.getElementById(`body`).addEventListener('keydown', function (event) {
         // turn repeat off (can't press down anymore)
