@@ -39,7 +39,7 @@ async function checkValid(str) {
         if (response.status == 200) {
             const value = await response.json();
             //console.log(`the value is ${value[0].word}`)
-           return value;
+            return value;
           
         } else {
             return -1;
@@ -47,7 +47,7 @@ async function checkValid(str) {
         }
 
     } catch (error) {
-
+         console.error(`user input invalid word`)
     }
 
 }
@@ -337,8 +337,8 @@ async function main() {
 
 
     answerWord = value[0];
-    
-    console.log(`the word is ${answerWord}`);
+
+    // console.log(`the word is ${answerWord}`);
 
     let down = false;
     let locked = false;
