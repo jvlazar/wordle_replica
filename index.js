@@ -205,9 +205,6 @@ function checkInput(str) {
 
                     if (answerWordSplit.indexOf(str[i]) == userWordSplit.indexOf(str[i])) {
                         // leave as gray
-                        if (document.getElementById(str[i]).style.backgroundColor != "green") {
-                            changeColourKeyboard(gray, str[i]);
-                        }
                         changeColourInput(gray, i, delay, rowNumber - 1);
                     } else if (answerWordSplit.includes(str[i]) && userWordSplit.includes(str[i])) {
                         // if the letter appears after the current index in both the answer and the user input, change to yellow
@@ -340,8 +337,8 @@ async function main() {
 
 
     answerWord = value[0];
-
-    //console.log(`the word is ${answerWord}`);
+    
+    console.log(`the word is ${answerWord}`);
 
     let down = false;
     let locked = false;
