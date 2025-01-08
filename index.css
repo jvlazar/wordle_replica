@@ -4,7 +4,7 @@
     --text-color: white;
     --border: rgba(54, 54, 54, 1);
     --no-input-keyboard: black;
-    --dark-mode-button: url('/assets/icons/sun.png');
+    --dark-mode-button: url('./assets/icons/sun.png');
     --dark-mode-button-image-size: 40px 40px;
     --dark-mode-button-hover-color: rgb(72, 72, 73);
     --dark-mode-button-background-color: transparent;
@@ -17,7 +17,7 @@
     --border: rgba(54, 54, 54, 1);
     --text-color: black;
     --no-input-keyboard: black;
-    --dark-mode-button: url('/assets/icons/moon.png');
+    --dark-mode-button: url('./assets/icons/moon.png');
     --dark-mode-button-image-size: 35px 35px;
     --dark-mode-button-hover-color: rgb(207, 207, 218);
     --dark-mode-button-background-color: transparent;
