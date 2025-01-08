@@ -4,16 +4,18 @@
     --text-color: white;
     --border: rgba(54, 54, 54, 1);
     --no-input-keyboard: black;
+    --dark-mode-button: url('/assets/icons/sun.png');
+    --dark-mode-button-image-size: 45px 50px;
 
 }
 
 [data-theme="light"]{
-   
     --body-background: white;
     --border: rgba(54, 54, 54, 1);
     --text-color: black;
     --no-input-keyboard: black;
-    --button-image: 
+    --dark-mode-button: url('/assets/icons/moon.png');
+    --dark-mode-button-image-size: 30px 30px;
 }
 
 
@@ -44,9 +46,17 @@ body{
 }
 
 .colour_change_button{
-    background-color: blue;
-    width: 50px;
-    height: 40px;
+    position: absolute;
+    right: 10px;
+    background-image: var(--dark-mode-button);
+    background-size: var(--dark-mode-button-image-size);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border: 5px solid;
+    border-color: white;
+    background-color: transparent;
+    width: 60px;
+    height: 50px;
 }
 
 .error_message_div {

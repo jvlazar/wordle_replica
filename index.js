@@ -19,19 +19,22 @@ function replay() {
     
 }
 
-function toggleDarkMode(){
-    
-    // if darkMode is false (i.e. it's light mode) set theme to light
-    if (darkMode == "dark"){
-        darkMode = "light";
-        document.documentElement.setAttribute('data-theme', 'light');
-    } else{
-        darkMode = "dark";
-        document.documentElement.setAttribute('data-theme', 'dark');
-    }
-   
-    // store light mode option
-    localStorage.setItem('dark mode', darkMode);
+function toggleDarkMode(){   
+        // if darkMode is false (i.e. it's light mode) set theme to light
+        if (darkMode == "dark"){
+            darkMode = "light";
+            document.documentElement.setAttribute('data-theme', 'light');
+        } 
+        else{
+            darkMode = "dark";
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+       
+        // store light mode option
+        localStorage.setItem('dark mode', darkMode);
+
+       
+       
 }
 
 // get random word
@@ -409,6 +412,13 @@ async function main() {
     document.addEventListener('keyup', function () {
         down = false;
     }, false);
+
+    
+    // un-focus (i.e. blur) button to prevent theme changing on hitting enter
+    document.getElementById('dark_mode_toggle').addEventListener('click', 
+        function (e) {
+          this.blur();
+      })
 
     
 

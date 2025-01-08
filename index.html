@@ -11,7 +11,7 @@
 </head>
 
 <body id="body">
-    <button class="colour_change_button" onclick="toggleDarkMode()"></button>
+    <button type="button" class="colour_change_button" id="dark_mode_toggle" onclick="toggleDarkMode()"></button>
     <h1 class="title"> WORDLE Replica</h1>
     <h3 class="screen_error">Not available in landscape mode</h3>
     <div class="content" id="content">
@@ -94,7 +94,7 @@
                 <button onclick="addInput('L')" id="l">L</button>
             </div>
             <div class="keyboard_row" id="keyboard_row3">
-                <button id="submit_button">ENTER</button>
+                <button id="submit_button" type="submit">ENTER</button>
                 <button onclick="addInput('Z')" id="z">Z</button>
                 <button onclick="addInput('X')" id="x">X</button>
                 <button onclick="addInput('C')" id="c">C</button>
