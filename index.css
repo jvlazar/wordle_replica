@@ -6,6 +6,9 @@
     --no-input-keyboard: black;
     --dark-mode-button: url('/assets/icons/sun.png');
     --dark-mode-button-image-size: 45px 50px;
+    --dark-mode-button-hover-color: rgb(72, 72, 73);
+    --dark-mode-button-background-color: transparent;
+    --error-border-color: transparent;
 
 }
 
@@ -15,17 +18,23 @@
     --text-color: black;
     --no-input-keyboard: black;
     --dark-mode-button: url('/assets/icons/moon.png');
-    --dark-mode-button-image-size: 30px 30px;
+    --dark-mode-button-image-size: 35px 35px;
+    --dark-mode-button-hover-color: rgb(207, 207, 218);
+    --dark-mode-button-background-color: transparent;
+    --error-border-color: black;
+
 }
 
 
 
 body{
     background-color: var(--body-background);
+    
 }
 
 
 .title{
+    padding-top: 30px;
     color: var(--text-color);
     display: flex;
     margin: auto;
@@ -48,15 +57,20 @@ body{
 .colour_change_button{
     position: absolute;
     right: 10px;
+    background-image: white;
     background-image: var(--dark-mode-button);
     background-size: var(--dark-mode-button-image-size);
     background-repeat: no-repeat;
     background-position: 50%;
-    border: 5px solid;
-    border-color: white;
-    background-color: transparent;
+    border:none;
+    background-color: var(--dark-mode-button-background-color);
     width: 60px;
     height: 50px;
+}
+
+.colour_change_button:hover{
+    cursor:pointer;
+    background-color: var(--dark-mode-button-hover-color);
 }
 
 .error_message_div {
@@ -71,6 +85,7 @@ body{
     text-align: center;
     border-radius: 1em;
     overflow: hidden;
+    border: 2px var(--error-border-color) solid;
 }
 
 .replay_container{
