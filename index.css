@@ -1,16 +1,30 @@
-:root{
+:root, [data-theme='dark']{
     /* Colours */
     --body-background: rgb(27, 27, 27);
+    --text-color: white;
     --border: rgba(54, 54, 54, 1);
+    --no-input-keyboard: black;
+
 }
+
+[data-theme="light"]{
+   
+    --body-background: white;
+    --border: rgba(54, 54, 54, 1);
+    --text-color: black;
+    --no-input-keyboard: black;
+    --button-image: 
+}
+
+
 
 body{
     background-color: var(--body-background);
-    
 }
 
+
 .title{
-    color: white;
+    color: var(--text-color);
     display: flex;
     margin: auto;
     margin-bottom: 2vw;
@@ -20,13 +34,19 @@ body{
 
 .screen_error{
     display: none;
-    color: white;
+    color: var(--text_color);
 }
 
 .content{
     width: 90%;
     margin: auto;
    
+}
+
+.colour_change_button{
+    background-color: blue;
+    width: 50px;
+    height: 40px;
 }
 
 .error_message_div {
@@ -48,7 +68,7 @@ body{
 }
 
 .message {
-    color: white;
+    color: var(--text-color);
     font-size: 8vw;
     text-align: center;
     margin-bottom: 0vw;
@@ -87,7 +107,7 @@ input{
     animation-name: none;
     animation-duration: 0.5s;
     animation-iteration-count: 2;
-    color: white;
+    color: var(--text-color);
 }
 
 .keyboard{
@@ -110,7 +130,7 @@ input{
     border-radius: 0.5em;
     border-style: none;
     background-color: rgb(162, 162, 162);
-    color: white;
+    color: var(--text_color);
     font-weight: 600px;
 }
 
@@ -276,7 +296,7 @@ input{
     }
 
     .message {
-        color: white;
+        color:var(--text_color);
         font-size: 3vw;
         display: block;
         text-align: center;

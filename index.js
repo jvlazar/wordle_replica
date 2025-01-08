@@ -10,9 +10,28 @@ const green = 'rgba(23, 194, 31, 0.885)';
 const yellow = 'rgb(255, 162, 0)';
 const gray = 'rgba(87, 87, 87, 0.207)';
 
+// darkMode = false == light mode is on
+let darkMode = "light";
+
 
 function replay() {
     location.reload();
+    
+}
+
+function toggleDarkMode(){
+    
+    // if darkMode is false (i.e. it's light mode) set theme to light
+    if (darkMode == "dark"){
+        darkMode = "light";
+        document.documentElement.setAttribute('data-theme', 'light');
+    } else{
+        darkMode = "dark";
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+   
+    // store light mode option
+    localStorage.setItem('dark mode', darkMode);
 }
 
 // get random word
@@ -313,7 +332,21 @@ function addInputFromKeyboard(e) {
 async function main() {
 
     // clears the fields on refresh
-    window.onload = function () {
+    window.onload = function () { 
+        // get dark mode from local storage on load
+        if (localStorage.getItem(`dark mode`) == null){
+            localStorage.setItem(`dark mode`, darkMode);
+        }
+        // set dark mode
+        darkMode = localStorage.getItem(`dark mode`);
+        // if darkMode is true, set theme to dark
+        if (darkMode == "dark"){
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+        
+    
         var inputs;
         var index;
         finished = false;
