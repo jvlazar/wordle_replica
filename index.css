@@ -5,7 +5,7 @@
     --border: rgba(54, 54, 54, 1);
     --no-input-keyboard: black;
     --dark-mode-button: url('/assets/icons/sun.png');
-    --dark-mode-button-image-size: 45px 50px;
+    --dark-mode-button-image-size: 40px 40px;
     --dark-mode-button-hover-color: rgb(72, 72, 73);
     --dark-mode-button-background-color: transparent;
     --error-border-color: transparent;
@@ -155,8 +155,8 @@ input{
     border-radius: 0.5em;
     border-style: none;
     background-color: rgb(162, 162, 162);
-    color: var(--text_color);
-    font-weight: 600px;
+    color: var(--text-color);
+    font-weight: 800px;
 }
 
 #keyboard_row2{
