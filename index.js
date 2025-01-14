@@ -271,6 +271,7 @@ function checkInput(str) {
 // changes colour of the fields according to response
 function changeColourInput(colour, id, delay, rownum) {
     var parent = document.getElementById("row" + rownum);
+    parent.children[id].style.color = "white";
     parent.children[id].style.backgroundColor = colour;
     parent.children[id].style.transition = "background-color 0.25s ease";
     parent.children[id].style.transition.delay = delay + "ms";

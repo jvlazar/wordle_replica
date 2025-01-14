@@ -107,6 +107,7 @@ body{
 }
 
 #replay_button {
+    -webkit-appearance: none;
     display: none;
     text-align: center;
     margin: 1vw auto;
@@ -126,6 +127,7 @@ body{
 }
 
 input{
+    -webkit-appearance: none;
     width: 13vw;
     height: 14vw;
     font-size: 4vw;
@@ -139,7 +141,7 @@ input{
     animation-name: none;
     animation-duration: 0.5s;
     animation-iteration-count: 2;
-    color: white;
+    color: var(--text-color);
 }
 
 .keyboard{
@@ -155,6 +157,7 @@ input{
 }
 
 .keyboard_row button{
+    -webkit-appearance: none;
     margin: 1% 0.5%;
     width: 12vw;
     height: 15vw;
