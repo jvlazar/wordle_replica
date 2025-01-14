@@ -12,6 +12,7 @@
     --green: rgb(23, 194, 31);
     --yellow: rgb(255, 162, 0);
     --gray: rgb(87, 87, 87);
+    --text-color-keyboard: white;
 
 }
 
@@ -26,8 +27,10 @@
     --dark-mode-button-background-color: transparent;
     --error-border-color: black;
     --gray: rgb(82, 79, 79);
-    --green: rgb(23, 194, 31, );
+    --green: rgb(23, 194, 31);
     --yellow: rgb(255, 162, 0);
+    --text-color-keyboard: black;
+
 
 }
 
@@ -133,7 +136,6 @@ input{
     font-size: 4vw;
     text-align: center;
     margin: 0.5%;
-    background-color: transparent;
     border-style: solid;
     border-color: var(--border);
     border-radius: 0.2em;
@@ -142,6 +144,8 @@ input{
     animation-duration: 0.5s;
     animation-iteration-count: 2;
     color: var(--text-color);
+    font-weight: 600;
+    
 }
 
 .keyboard{
@@ -165,8 +169,8 @@ input{
     border-radius: 0.5em;
     border-style: none;
     background-color: rgb(162, 162, 162);
-    color: black;
-    font-weight: 800px;
+    color: var(--text-color-keyboard);
+    font-weight: 800;
 }
 
 #keyboard_row2{
@@ -294,7 +298,7 @@ input{
         height: 60px;
         font-size: 1em;
         border-radius: 0.3em;
-        font-weight: 800px;
+        font-weight: 800;
         cursor: pointer;
     }
 
