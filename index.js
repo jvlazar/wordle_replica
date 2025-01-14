@@ -6,9 +6,9 @@ let fieldNumber = 0;
 let finished = false;
 let pressed = false;
 let inProgress = false;
-const green = 'rgba(23, 194, 31, 0.885)';
-const yellow = 'rgb(255, 162, 0)';
-const gray = 'rgba(87, 87, 87, 0.207)';
+const green = "var(--green)";
+const yellow = "var(--yellow)";
+const gray = 'var(--gray)';
 
 // darkMode = false == light mode is on
 let darkMode = "light";
